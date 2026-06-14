@@ -1,0 +1,103 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Upbit
+providerId: upbit
+created: '2026-06-13'
+modified: '2026-06-13'
+reconciled: true
+tags:
+  - Cryptocurrency
+  - Exchange
+  - Trading
+  - Market Data
+description: >-
+  Upbit API access is free for all registered Upbit account holders with security level 2 or higher.
+  There are no subscription fees or API call charges for using the REST or WebSocket APIs. Trading costs
+  are realized as a per-trade fee of 0.05% (0.0005) applied symmetrically to both maker and taker orders
+  across KRW, BTC, and USDT markets. API keys are issued via the Upbit PC web interface at My Profile >
+  Open API. Public quotation endpoints (market data, tickers, candles, orderbooks) require no API key
+  at all and can be accessed by anyone.
+sources:
+  - https://global-docs.upbit.com/docs/api-key
+  - https://global-docs.upbit.com/reference
+  - https://github.com/ccxt/ccxt/blob/master/python/ccxt/async_support/upbit.py
+plans:
+  - id: upbit-public-access
+    name: Public Quotation Access
+    type: free
+    description: >-
+      Free, unauthenticated access to all Upbit quotation endpoints including live tickers, orderbooks,
+      candles, and trade history. No account or API key is required.
+    entries:
+      - label: API calls
+        name: public_api_calls
+        type: free
+        metric: requests
+        limit: -1
+        timeFrame: unlimited
+        geo: global
+        unit: 1
+        price: 0
+        userMultiplied: false
+    elements:
+      - name: Ticker data (all trading pairs)
+      - name: Orderbook snapshots
+      - name: OHLCV candles (second to year intervals)
+      - name: Recent trades history
+      - name: Trading pair listings
+  - id: upbit-authenticated-access
+    name: Authenticated Exchange Access
+    type: free
+    description: >-
+      Free API access for registered Upbit account holders with security level 2 or higher. Requires
+      issuing an API key via the Upbit PC web portal. Trading fees of 0.05% per trade apply at execution.
+    entries:
+      - label: API access fee
+        name: exchange_api_access
+        type: free
+        metric: requests
+        limit: -1
+        timeFrame: unlimited
+        geo: global
+        unit: 1
+        price: 0
+        userMultiplied: false
+      - label: Trading fee (maker)
+        name: maker_fee
+        type: metered
+        metric: trade
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: 0.05%
+        userMultiplied: false
+      - label: Trading fee (taker)
+        name: taker_fee
+        type: metered
+        metric: trade
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: 0.05%
+        userMultiplied: false
+    elements:
+      - name: Account balances and portfolio composition
+      - name: Market and limit order placement and cancellation
+      - name: Batch order cancellation (up to 300 orders)
+      - name: Cancel-and-replace order operations
+      - name: Open and closed order history
+      - name: Deposit address generation and KRW deposits
+      - name: Digital asset withdrawals with allowlisted addresses
+      - name: Travel Rule compliance verification
+      - name: Pocket (sub-account) management
+      - name: WebSocket personal order and asset streams
+    requirements:
+      - Upbit account registration
+      - Security level 2 or higher
+      - IP allowlisting required for order and withdrawal API keys
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

@@ -1,0 +1,172 @@
+aid: upbit
+url: https://raw.githubusercontent.com/api-evangelist/upbit/refs/heads/main/apis.yml
+name: Upbit
+tags:
+  - Cryptocurrency
+  - Exchange
+  - Market Data
+  - Orders
+  - Trading
+  - WebSocket
+type: Index
+kind: company
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+access: 3rd-Party
+created: '2026-06-13'
+modified: '2026-06-13'
+position: Consumer
+description: >-
+  Upbit is a leading South Korean cryptocurrency exchange operated by Dunamu Inc., offering REST and
+  WebSocket APIs for market data retrieval, order management, account balances, and transaction history.
+  Developers must register an Upbit account with security level 2 or higher to issue API keys. Authenticated
+  requests use JWT bearer tokens (HS512) generated from an Access Key and Secret Key pair, while public
+  quotation endpoints (market data, tickers, orderbooks, candles) require no authentication. Upbit supports
+  KRW, BTC, and USDT trading markets and complies with travel-rule regulations for digital asset transfers.
+  Regional API endpoints are available for Korea, Singapore, Indonesia, and Thailand.
+apis:
+  - aid: upbit:quotation-api
+    name: Upbit Quotation API
+    tags:
+      - Candles
+      - Market Data
+      - Orderbook
+      - Tickers
+      - Trades
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    baseURL: https://api.upbit.com
+    humanURL: https://global-docs.upbit.com/reference
+    properties:
+      - url: https://global-docs.upbit.com/reference
+        type: Documentation
+      - url: https://global-docs.upbit.com/llms.txt
+        type: LLMsTxt
+    description: >-
+      The Upbit Quotation API provides public, unauthenticated access to real-time and historical market
+      data across all trading pairs on the Upbit exchange. Developers can retrieve current ticker prices,
+      full orderbook snapshots with configurable aggregation levels, recent trade history, and OHLCV candles
+      at second, minute, day, week, month, and year intervals. The list of all supported trading pairs and
+      market identifiers is also available. No API key is required for any quotation endpoint.
+    x-features:
+      - No authentication required for public market data
+      - Tickers by market or by trading pair identifiers
+      - Orderbook snapshots with configurable aggregation levels
+      - OHLCV candles at second, minute, day, week, month, and year intervals
+      - Recent trades history per trading pair
+      - Full list of supported trading pairs and market identifiers
+    x-use-cases:
+      - Build real-time price dashboards for Korean crypto markets
+      - Power charting applications with OHLCV candle data
+      - Drive arbitrage analysis using live orderbook snapshots
+      - Create market-scanning tools that monitor all Upbit pairs
+  - aid: upbit:exchange-api
+    name: Upbit Exchange API
+    tags:
+      - Account
+      - Balances
+      - Deposits
+      - Orders
+      - Trading
+      - Withdrawals
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    baseURL: https://api.upbit.com
+    humanURL: https://global-docs.upbit.com/reference
+    properties:
+      - url: https://global-docs.upbit.com/reference
+        type: Documentation
+      - url: https://global-docs.upbit.com/docs/first-exchange-api-call
+        type: GettingStarted
+      - url: https://global-docs.upbit.com/docs/api-key
+        type: Authentication
+      - url: https://global-docs.upbit.com/llms.txt
+        type: LLMsTxt
+    description: >-
+      The Upbit Exchange API provides authenticated access to account management, order execution, and
+      fund operations on the Upbit cryptocurrency exchange. Developers can query account balances and asset
+      portfolio composition, place and cancel limit and market orders across KRW, BTC, and USDT markets,
+      and retrieve full order history including open and closed orders. Deposits and withdrawals for digital
+      assets and KRW are supported, including deposit address generation, withdrawal address whitelisting,
+      and travel-rule compliance verification. Authentication requires a JWT bearer token (HS512) generated
+      from an Access Key and Secret Key issued via the Upbit account management portal.
+    x-features:
+      - JWT HS512 bearer token authentication
+      - Account balances and portfolio asset composition
+      - Market and limit orders for buy and sell across KRW, BTC, and USDT markets
+      - Batch order cancellation (up to 300 orders) and cancel-and-replace operations
+      - Open and closed order history with filtering
+      - Deposit address generation and KRW deposit support
+      - Digital asset withdrawal with allowlisted address management
+      - Travel Rule verification for cross-exchange transfers
+      - Service status and available order information endpoints
+      - Pocket (sub-account) creation, querying, and cross-pocket transfers
+    x-use-cases:
+      - Build automated trading bots for Korean KRW and BTC markets
+      - Manage multi-asset portfolios with real-time balance tracking
+      - Automate crypto deposit and withdrawal workflows with compliance checks
+      - Operate algorithmic strategies with batch order management
+  - aid: upbit:websocket-api
+    name: Upbit WebSocket API
+    tags:
+      - Candles
+      - Market Data
+      - Orders
+      - Real-time
+      - Trades
+      - WebSocket
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    baseURL: wss://api.upbit.com
+    humanURL: https://global-docs.upbit.com/reference
+    properties:
+      - url: https://global-docs.upbit.com/reference
+        type: Documentation
+      - url: https://global-docs.upbit.com/llms.txt
+        type: LLMsTxt
+    description: >-
+      The Upbit WebSocket API delivers real-time streaming data for market and account events. Public
+      streams include live tickers, full orderbook updates, OHLCV candles, and trade feeds for any trading
+      pair. Authenticated streams provide personal order and trade fill notifications and asset balance
+      change events, enabling reactive trading systems. JWT bearer token authentication is required for
+      personal (private) streams. Clients can list active subscriptions to monitor and manage connections.
+    x-features:
+      - Real-time ticker streams for all trading pairs
+      - Live orderbook update feeds with configurable depth
+      - OHLCV candle streams at multiple timeframes
+      - Trade execution feeds per market pair
+      - Personal order fill and trade notifications (authenticated)
+      - Asset balance change events (authenticated)
+      - Active subscription listing and management
+    x-use-cases:
+      - Drive low-latency trading UIs with live orderbook feeds
+      - Trigger execution logic on real-time price events
+      - Build portfolio dashboards that react to balance changes
+      - Monitor order fills in event-driven trading systems
+common:
+  - type: Website
+    url: https://upbit.com
+  - type: Developer Portal
+    url: https://global-docs.upbit.com/
+  - type: Documentation
+    url: https://global-docs.upbit.com/reference
+  - type: GettingStarted
+    url: https://global-docs.upbit.com/docs/first-exchange-api-call
+  - type: Authentication
+    url: https://global-docs.upbit.com/reference/auth
+  - type: RateLimits
+    url: https://global-docs.upbit.com/reference/rate-limits
+  - type: GitHub
+    url: https://github.com/upbit-exchange
+  - type: SDKs
+    url: https://global-docs.upbit.com/docs/sdk
+  - type: TermsOfService
+    url: https://upbit.com/service_center/terms
+  - type: PrivacyPolicy
+    url: https://upbit.com/service_center/privacy_policy
+  - type: Support
+    url: https://global-docs.upbit.com/docs/support
+  - type: LLMsTxt
+    url: https://global-docs.upbit.com/llms.txt
+  - type: Announcements
+    url: https://global-docs.upbit.com/docs/announcements
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
+specificationVersion: '0.19'

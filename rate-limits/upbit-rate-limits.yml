@@ -1,0 +1,81 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Upbit
+providerId: upbit
+created: '2026-06-13'
+modified: '2026-06-13'
+reconciled: true
+tags:
+  - Rate Limiting
+  - Cryptocurrency
+  - Exchange
+  - Market Data
+description: >-
+  Upbit enforces per-group request rate limits tracked via response headers. Each response includes a
+  Remaining-Req header indicating the group name, remaining calls for the current minute, and remaining
+  calls for the current second (format: group=<name>; min=<N>; sec=<N>). Public quotation endpoints
+  (market data, tickers, orderbooks, candles) share one rate-limit group; authenticated exchange endpoints
+  share another. WebSocket connections are also subject to connection-level throttling. The 50 ms base
+  request interval corresponds to a theoretical ceiling of ~20 requests per second before throttling.
+sources:
+  - https://global-docs.upbit.com/reference/rate-limits
+  - https://github.com/ccxt/ccxt/blob/master/python/ccxt/async_support/upbit.py
+responseCodes:
+  throttled: 429
+headers:
+  - name: Remaining-Req
+    description: >-
+      Returned on every response. Format: group=<name>; min=<remaining per minute>; sec=<remaining per second>.
+      Groups include "market" (trading pairs list), "candles", "ticker", "orderbook", "trades" for public
+      endpoints and "default" for authenticated exchange endpoints.
+limits:
+  - name: Quotation REST — market data endpoints
+    scope: IP
+    metric: requests_per_second
+    limit: 10
+    timeFrame: second
+    notes: >-
+      Applies to public endpoints including tickers, orderbooks, candles, and recent trades.
+      Remaining quota is returned in the Remaining-Req response header per group.
+  - name: Exchange REST — authenticated endpoints
+    scope: user
+    metric: requests_per_second
+    limit: 8
+    timeFrame: second
+    notes: >-
+      Applies to authenticated endpoints for orders, accounts, deposits, and withdrawals.
+      Requests exceeding the limit receive HTTP 429. IP allowlisting required for order
+      and withdrawal operations.
+  - name: WebSocket — connections
+    scope: IP
+    metric: connections
+    limit: 5
+    timeFrame: concurrent
+    notes: Concurrent WebSocket connection limit per IP address.
+  - name: Base request interval
+    scope: global
+    metric: interval_ms
+    limit: 50
+    timeFrame: per-request
+    notes: >-
+      The base rateLimit used by CCXT and other client libraries is 50ms between requests,
+      corresponding to a ceiling of approximately 20 requests per second before server-side throttling.
+policies:
+  - name: Remaining-Req header monitoring
+    description: >-
+      Clients should inspect the Remaining-Req header after each response and back off
+      when sec or min counters approach zero to avoid 429 errors.
+  - name: Exponential backoff
+    description: On receiving a 429 response, apply exponential backoff with jitter before retrying.
+  - name: Per-group isolation
+    description: >-
+      Rate limit buckets are isolated by group (e.g., candles, ticker, orderbook). Exhausting one
+      group does not affect the quota of another group.
+  - name: IP allowlisting for high-privilege operations
+    description: >-
+      API keys used for order placement or withdrawals require IP allowlisting. Requests from
+      non-allowlisted IPs for these operations will be rejected regardless of rate-limit status.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

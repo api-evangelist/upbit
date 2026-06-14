@@ -1,0 +1,98 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: Upbit
+providerId: upbit
+created: '2026-06-13'
+modified: '2026-06-13'
+reconciled: true
+tags:
+  - FinOps
+  - FOCUS
+  - Cryptocurrency
+  - Exchange
+  - Trading
+description: >-
+  FOCUS-aligned FinOps for Upbit: API access itself carries no cost. All costs are realized at trade
+  execution as a flat 0.05% fee applied symmetrically to maker and taker orders across KRW, BTC, and
+  USDT markets. There are no tiered volume discounts publicly documented. Withdrawal fees vary by digital
+  asset and are set by Upbit based on network conditions.
+sources:
+  - https://global-docs.upbit.com/reference
+  - https://global-docs.upbit.com/docs/api-key
+  - https://github.com/ccxt/ccxt/blob/master/python/ccxt/async_support/upbit.py
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: Dunamu Inc.
+serviceCategory: Financial Services
+billingModel:
+  pricingCategory: Take Rate
+  billingFrequency: Per Trade Settlement
+  billingCurrency: KRW / BTC / USDT
+  chargeCategories:
+    - Usage
+    - Adjustment
+focusColumns:
+  ServiceName: Upbit Exchange
+  ServiceCategory: Financial Services
+  ProviderName: Upbit
+  PublisherName: Dunamu Inc.
+  InvoiceIssuerName: Dunamu Inc.
+  BillingCurrency: KRW
+meters:
+  - name: trade_volume
+    unit: KRW / BTC / USDT
+    aggregation: sum
+    dimensions:
+      - market
+      - order_type
+      - side
+  - name: trading_fees
+    unit: KRW / BTC / USDT
+    aggregation: sum
+    dimensions:
+      - market
+      - fee_type
+  - name: withdrawal_fees
+    unit: crypto_asset
+    aggregation: sum
+    dimensions:
+      - asset
+      - network
+costDrivers:
+  - name: Trade execution volume
+    description: >-
+      The primary cost driver is trade volume. At 0.05% flat fee for both maker and taker, total
+      trading costs scale linearly with executed volume. There is no volume discount tier structure.
+  - name: Withdrawal network fees
+    description: >-
+      Digital asset withdrawals incur network fees that vary by blockchain and are passed through to
+      the user. These are not fixed and may change based on on-chain congestion.
+  - name: API call volume
+    description: >-
+      API calls do not incur any charges. REST and WebSocket access is provided free of cost to
+      authenticated account holders and anonymous users accessing public quotation endpoints.
+optimization:
+  - name: Batch order management
+    description: >-
+      Use batch cancel endpoints (up to 300 orders per request) instead of individual cancel calls
+      to reduce the number of API round-trips and stay within rate limits efficiently.
+  - name: WebSocket vs REST polling
+    description: >-
+      Use WebSocket streams for real-time data (tickers, orderbooks, trades) instead of polling
+      REST endpoints to reduce request volume and improve latency.
+  - name: Public endpoints for market data
+    description: >-
+      Use unauthenticated public quotation endpoints for market data to avoid consuming authenticated
+      API key rate-limit quota unnecessarily.
+  - name: Withdrawal consolidation
+    description: >-
+      Consolidate small withdrawals into fewer larger transactions to minimize per-withdrawal network
+      fee overhead relative to the amount transferred.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
