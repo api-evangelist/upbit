@@ -1,0 +1,75 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "api": "https://pending.schema.org/WebAPI",
+    "upbit": "https://upbit.com/ns#"
+  },
+  "@type": "Organization",
+  "@id": "https://upbit.com",
+  "name": "Upbit",
+  "description": "Leading South Korean cryptocurrency exchange operated by Dunamu Inc., offering REST and WebSocket APIs for market data, order management, account balances, and transaction history.",
+  "url": "https://upbit.com",
+  "sameAs": [
+    "https://global-docs.upbit.com/",
+    "https://github.com/upbit-official"
+  ],
+  "foundingLocation": {
+    "@type": "Place",
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "KR",
+      "addressLocality": "Seoul"
+    }
+  },
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Upbit APIs",
+    "itemListElement": [
+      {
+        "@type": "WebAPI",
+        "name": "Upbit Quotation API",
+        "description": "Public, unauthenticated access to real-time and historical market data across all trading pairs on Upbit.",
+        "documentation": "https://global-docs.upbit.com/reference",
+        "termsOfService": "https://upbit.com/service_center/terms",
+        "provider": {
+          "@type": "Organization",
+          "name": "Upbit (Dunamu Inc.)"
+        }
+      },
+      {
+        "@type": "WebAPI",
+        "name": "Upbit Exchange API",
+        "description": "Authenticated access to account management, order execution, and fund operations on Upbit.",
+        "documentation": "https://global-docs.upbit.com/reference",
+        "termsOfService": "https://upbit.com/service_center/terms",
+        "provider": {
+          "@type": "Organization",
+          "name": "Upbit (Dunamu Inc.)"
+        }
+      },
+      {
+        "@type": "WebAPI",
+        "name": "Upbit WebSocket API",
+        "description": "Real-time streaming data for market and account events via WebSocket.",
+        "documentation": "https://global-docs.upbit.com/reference",
+        "termsOfService": "https://upbit.com/service_center/terms",
+        "provider": {
+          "@type": "Organization",
+          "name": "Upbit (Dunamu Inc.)"
+        }
+      }
+    ]
+  },
+  "keywords": [
+    "cryptocurrency",
+    "exchange",
+    "market data",
+    "trading",
+    "orders",
+    "websocket",
+    "Korea",
+    "KRW",
+    "BTC",
+    "USDT"
+  ]
+}

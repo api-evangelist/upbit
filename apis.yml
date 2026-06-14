@@ -40,6 +40,8 @@ apis:
         type: Documentation
       - url: https://global-docs.upbit.com/llms.txt
         type: LLMsTxt
+      - url: https://raw.githubusercontent.com/api-evangelist/upbit/refs/heads/main/openapi/openapi.yml
+        type: OpenAPI
     description: >-
       The Upbit Quotation API provides public, unauthenticated access to real-time and historical market
       data across all trading pairs on the Upbit exchange. Developers can retrieve current ticker prices,
@@ -79,6 +81,8 @@ apis:
         type: Authentication
       - url: https://global-docs.upbit.com/llms.txt
         type: LLMsTxt
+      - url: https://raw.githubusercontent.com/api-evangelist/upbit/refs/heads/main/openapi/openapi.yml
+        type: OpenAPI
     description: >-
       The Upbit Exchange API provides authenticated access to account management, order execution, and
       fund operations on the Upbit cryptocurrency exchange. Developers can query account balances and asset

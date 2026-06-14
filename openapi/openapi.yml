@@ -1,0 +1,2442 @@
+openapi: 3.0.3
+info:
+  title: Upbit REST API
+  description: >-
+    Upbit is a leading South Korean cryptocurrency exchange operated by Dunamu Inc.,
+    offering REST and WebSocket APIs for market data retrieval, order management,
+    account balances, and transaction history. Developers must register an Upbit
+    account with security level 2 or higher to issue API keys. Authenticated requests
+    use JWT bearer tokens (HS512) generated from an Access Key and Secret Key pair,
+    while public quotation endpoints (market data, tickers, orderbooks, candles)
+    require no authentication. Upbit supports KRW, BTC, and USDT trading markets
+    and complies with travel-rule regulations for digital asset transfers.
+  version: 1.3.2
+  termsOfService: https://upbit.com/service_center/terms
+  contact:
+    url: https://global-docs.upbit.com/docs/support
+  license:
+    name: Upbit Open API Usage Agreement
+    url: https://upbit.com/service_center/terms
+externalDocs:
+  description: Upbit Developer Center
+  url: https://global-docs.upbit.com/reference
+servers:
+  - url: https://api.upbit.com/v1
+    description: Global API endpoint
+tags:
+  - name: Quotation
+    description: Public market data endpoints — no authentication required
+  - name: Exchange - Account
+    description: Account balance and portfolio endpoints — JWT required
+  - name: Exchange - Orders
+    description: Order management endpoints — JWT required
+  - name: Exchange - Withdrawals
+    description: Withdrawal management endpoints — JWT required
+  - name: Exchange - Deposits
+    description: Deposit management endpoints — JWT required
+  - name: Exchange - Travel Rule
+    description: Travel Rule compliance endpoints — JWT required
+  - name: Exchange - Service
+    description: Service status and API key endpoints — JWT required
+security: []
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: >-
+        JWT HS512 token generated from Access Key and Secret Key. Include
+        query_hash and query_hash_alg=SHA512 in the payload when query
+        parameters or JSON body exist.
+  schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            name:
+              type: string
+              description: Error code name
+            message:
+              type: string
+              description: Human-readable error message
+    TickerResponse:
+      type: object
+      properties:
+        market:
+          type: string
+          description: Market identifier (e.g., KRW-BTC)
+        trade_date:
+          type: string
+          description: Trade date (UTC, YYYYMMDD)
+        trade_time:
+          type: string
+          description: Trade time (UTC, HHmmss)
+        trade_date_kst:
+          type: string
+          description: Trade date (KST, YYYYMMDD)
+        trade_time_kst:
+          type: string
+          description: Trade time (KST, HHmmss)
+        trade_timestamp:
+          type: integer
+          format: int64
+          description: Trade timestamp (milliseconds)
+        opening_price:
+          type: string
+          description: Opening price (decimal string)
+        high_price:
+          type: string
+          description: High price (decimal string)
+        low_price:
+          type: string
+          description: Low price (decimal string)
+        trade_price:
+          type: string
+          description: Latest trade price (decimal string)
+        prev_closing_price:
+          type: string
+          description: Previous closing price (decimal string)
+        change:
+          type: string
+          enum: [RISE, EVEN, FALL]
+          description: Price change direction
+        change_price:
+          type: string
+          description: Absolute price change (decimal string)
+        change_rate:
+          type: string
+          description: Relative price change rate (decimal string)
+        signed_change_price:
+          type: string
+          description: Signed price change (decimal string)
+        signed_change_rate:
+          type: string
+          description: Signed change rate (decimal string)
+        trade_volume:
+          type: string
+          description: Trade volume (decimal string)
+        acc_trade_price:
+          type: string
+          description: Accumulated trade price today (decimal string)
+        acc_trade_price_24h:
+          type: string
+          description: Accumulated trade price (24h, decimal string)
+        acc_trade_volume:
+          type: string
+          description: Accumulated trade volume today (decimal string)
+        acc_trade_volume_24h:
+          type: string
+          description: Accumulated trade volume (24h, decimal string)
+        highest_52_week_price:
+          type: string
+          description: 52-week high price (decimal string)
+        highest_52_week_date:
+          type: string
+          description: Date of 52-week high (YYYY-MM-DD)
+        lowest_52_week_price:
+          type: string
+          description: 52-week low price (decimal string)
+        lowest_52_week_date:
+          type: string
+          description: Date of 52-week low (YYYY-MM-DD)
+        timestamp:
+          type: integer
+          format: int64
+          description: Ticker timestamp (milliseconds)
+    CandleResponse:
+      type: object
+      properties:
+        market:
+          type: string
+          description: Market identifier
+        candle_date_time_utc:
+          type: string
+          format: date-time
+          description: Candle start time (UTC)
+        candle_date_time_kst:
+          type: string
+          format: date-time
+          description: Candle start time (KST)
+        opening_price:
+          type: string
+          description: Opening price (decimal string)
+        high_price:
+          type: string
+          description: High price (decimal string)
+        low_price:
+          type: string
+          description: Low price (decimal string)
+        trade_price:
+          type: string
+          description: Closing price (decimal string)
+        timestamp:
+          type: integer
+          format: int64
+          description: Candle timestamp (milliseconds)
+        candle_acc_trade_price:
+          type: string
+          description: Accumulated trade price in candle period (decimal string)
+        candle_acc_trade_volume:
+          type: string
+          description: Accumulated trade volume in candle period (decimal string)
+    OrderResponse:
+      type: object
+      properties:
+        market:
+          type: string
+          description: Market identifier
+        uuid:
+          type: string
+          description: Order UUID
+        side:
+          type: string
+          enum: [bid, ask]
+          description: Order side (bid=buy, ask=sell)
+        ord_type:
+          type: string
+          enum: [limit, price, market, best]
+          description: Order type
+        state:
+          type: string
+          enum: [wait, watch, done, cancel]
+          description: Order state
+        created_at:
+          type: string
+          format: date-time
+          description: Order creation time
+        remaining_volume:
+          type: string
+          description: Remaining volume (decimal string)
+        executed_volume:
+          type: string
+          description: Executed volume (decimal string)
+        reserved_fee:
+          type: string
+          description: Reserved fee (decimal string)
+        remaining_fee:
+          type: string
+          description: Remaining fee (decimal string)
+        paid_fee:
+          type: string
+          description: Paid fee (decimal string)
+        locked:
+          type: string
+          description: Locked amount (decimal string)
+        trades_count:
+          type: integer
+          description: Number of trades
+        prevented_volume:
+          type: string
+          description: Volume prevented by SMP (decimal string)
+        prevented_locked:
+          type: string
+          description: Amount locked by SMP prevention (decimal string)
+    WithdrawalResponse:
+      type: object
+      properties:
+        type:
+          type: string
+          description: Transaction type
+        uuid:
+          type: string
+          description: Withdrawal UUID
+        currency:
+          type: string
+          description: Currency code
+        txid:
+          type: string
+          description: Transaction ID
+        state:
+          type: string
+          description: Withdrawal state
+        created_at:
+          type: string
+          format: date-time
+          description: Creation time
+        done_at:
+          type: string
+          format: date-time
+          nullable: true
+          description: Completion time
+        amount:
+          type: string
+          description: Withdrawal amount (decimal string)
+        fee:
+          type: string
+          description: Withdrawal fee (decimal string)
+        transaction_type:
+          type: string
+          enum: [default, internal]
+          description: Transaction type (default or internal)
+    DepositResponse:
+      type: object
+      properties:
+        type:
+          type: string
+          description: Transaction type
+        uuid:
+          type: string
+          description: Deposit UUID
+        currency:
+          type: string
+          description: Currency code
+        txid:
+          type: string
+          description: Transaction ID
+        state:
+          type: string
+          description: Deposit state
+        created_at:
+          type: string
+          format: date-time
+          description: Creation time
+        done_at:
+          type: string
+          format: date-time
+          nullable: true
+          description: Completion time
+        amount:
+          type: string
+          description: Deposit amount (decimal string)
+        fee:
+          type: string
+          description: Deposit fee (decimal string)
+        transaction_type:
+          type: string
+          description: Transaction type
+paths:
+  /market/all:
+    get:
+      operationId: listTradingPairs
+      summary: List trading pairs
+      description: >-
+        Returns a list of all trading pair identifiers available on Upbit.
+        No authentication required.
+      tags:
+        - Quotation
+      parameters:
+        - name: is_details
+          in: query
+          required: false
+          schema:
+            type: boolean
+          description: If true, returns additional market detail fields
+      responses:
+        '200':
+          description: List of trading pairs
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    market:
+                      type: string
+                      description: Market identifier (e.g., KRW-BTC)
+                    korean_name:
+                      type: string
+                      description: Korean name of the asset
+                    english_name:
+                      type: string
+                      description: English name of the asset
+        '429':
+          description: Rate limit exceeded
+  /candles/seconds:
+    get:
+      operationId: listCandlesSeconds
+      summary: List second candles
+      description: >-
+        Returns OHLCV second candles for the specified market. No authentication required.
+      tags:
+        - Quotation
+      parameters:
+        - name: market
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Market identifier (e.g., KRW-BTC)
+        - name: to
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date-time
+          description: End time for candles (ISO 8601 format)
+        - name: count
+          in: query
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 200
+          description: Number of candles to return (max 200)
+      responses:
+        '200':
+          description: List of second candles
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CandleResponse'
+        '429':
+          description: Rate limit exceeded
+  /candles/minutes/{unit}:
+    get:
+      operationId: listCandlesMinutes
+      summary: List minute candles
+      description: >-
+        Returns OHLCV minute candles for the specified market and unit interval.
+        No authentication required.
+      tags:
+        - Quotation
+      parameters:
+        - name: unit
+          in: path
+          required: true
+          schema:
+            type: integer
+            enum: [1, 3, 5, 10, 15, 30, 60, 240]
+          description: Minute interval (1, 3, 5, 10, 15, 30, 60, or 240)
+        - name: market
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Market identifier (e.g., KRW-BTC)
+        - name: to
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date-time
+          description: End time for candles (ISO 8601 format)
+        - name: count
+          in: query
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 200
+          description: Number of candles to return (max 200)
+      responses:
+        '200':
+          description: List of minute candles
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  allOf:
+                    - $ref: '#/components/schemas/CandleResponse'
+                    - type: object
+                      properties:
+                        unit:
+                          type: integer
+                          description: Minute unit of the candle
+        '429':
+          description: Rate limit exceeded
+  /candles/days:
+    get:
+      operationId: listCandlesDays
+      summary: List day candles
+      description: >-
+        Returns OHLCV daily candles for the specified market. No authentication required.
+      tags:
+        - Quotation
+      parameters:
+        - name: market
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Market identifier (e.g., KRW-BTC)
+        - name: to
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date-time
+          description: End time for candles (ISO 8601 format)
+        - name: count
+          in: query
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 200
+          description: Number of candles to return (max 200)
+        - name: converting_price_unit
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Quote currency for price conversion (e.g., KRW)
+      responses:
+        '200':
+          description: List of daily candles
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  allOf:
+                    - $ref: '#/components/schemas/CandleResponse'
+                    - type: object
+                      properties:
+                        prev_closing_price:
+                          type: string
+                          description: Previous day closing price (decimal string)
+                        change_price:
+                          type: string
+                          description: Price change from previous close (decimal string)
+                        change_rate:
+                          type: string
+                          description: Change rate from previous close (decimal string)
+        '429':
+          description: Rate limit exceeded
+  /candles/weeks:
+    get:
+      operationId: listCandlesWeeks
+      summary: List week candles
+      description: >-
+        Returns OHLCV weekly candles for the specified market. No authentication required.
+      tags:
+        - Quotation
+      parameters:
+        - name: market
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Market identifier (e.g., KRW-BTC)
+        - name: to
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date-time
+          description: End time for candles (ISO 8601 format)
+        - name: count
+          in: query
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 200
+          description: Number of candles to return (max 200)
+      responses:
+        '200':
+          description: List of weekly candles
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  allOf:
+                    - $ref: '#/components/schemas/CandleResponse'
+                    - type: object
+                      properties:
+                        first_day_of_period:
+                          type: string
+                          format: date
+                          description: First day of the week period (YYYY-MM-DD)
+        '429':
+          description: Rate limit exceeded
+  /candles/months:
+    get:
+      operationId: listCandlesMonths
+      summary: List month candles
+      description: >-
+        Returns OHLCV monthly candles for the specified market. No authentication required.
+      tags:
+        - Quotation
+      parameters:
+        - name: market
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Market identifier (e.g., KRW-BTC)
+        - name: to
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date-time
+          description: End time for candles (ISO 8601 format)
+        - name: count
+          in: query
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 200
+          description: Number of candles to return (max 200)
+      responses:
+        '200':
+          description: List of monthly candles
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  allOf:
+                    - $ref: '#/components/schemas/CandleResponse'
+                    - type: object
+                      properties:
+                        first_day_of_period:
+                          type: string
+                          format: date
+                          description: First day of the month period (YYYY-MM-DD)
+        '429':
+          description: Rate limit exceeded
+  /candles/years:
+    get:
+      operationId: listCandlesYears
+      summary: List year candles
+      description: >-
+        Returns OHLCV yearly candles for the specified market. No authentication required.
+      tags:
+        - Quotation
+      parameters:
+        - name: market
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Market identifier (e.g., KRW-BTC)
+        - name: to
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date-time
+          description: End time for candles (ISO 8601 format)
+        - name: count
+          in: query
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 200
+          description: Number of candles to return (max 200)
+      responses:
+        '200':
+          description: List of yearly candles
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  allOf:
+                    - $ref: '#/components/schemas/CandleResponse'
+                    - type: object
+                      properties:
+                        first_day_of_period:
+                          type: string
+                          format: date
+                          description: First day of the year period (YYYY-MM-DD)
+        '429':
+          description: Rate limit exceeded
+  /trades/ticks:
+    get:
+      operationId: listPairTrades
+      summary: List pair trades
+      description: >-
+        Returns recent trade ticks for the specified trading pair. No authentication required.
+      tags:
+        - Quotation
+      parameters:
+        - name: market
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Market identifier (e.g., KRW-BTC)
+        - name: to
+          in: query
+          required: false
+          schema:
+            type: string
+          description: End trade time (HHmmss or HHmmssSSS format)
+        - name: count
+          in: query
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 500
+          description: Number of trade ticks to return
+        - name: cursor
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Pagination cursor (sequential_id from prior response)
+        - name: days_ago
+          in: query
+          required: false
+          schema:
+            type: integer
+            minimum: 0
+            maximum: 7
+          description: Number of days ago to fetch trades (0–7)
+      responses:
+        '200':
+          description: List of trade ticks
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    market:
+                      type: string
+                    trade_date_utc:
+                      type: string
+                      description: Trade date (UTC)
+                    trade_time_utc:
+                      type: string
+                      description: Trade time (UTC)
+                    timestamp:
+                      type: integer
+                      format: int64
+                    trade_price:
+                      type: string
+                      description: Trade price (decimal string)
+                    trade_volume:
+                      type: string
+                      description: Trade volume (decimal string)
+                    prev_closing_price:
+                      type: string
+                      description: Previous closing price (decimal string)
+                    change_price:
+                      type: string
+                      description: Price change (decimal string)
+                    ask_bid:
+                      type: string
+                      enum: [ASK, BID]
+                      description: Whether the trade was an ask or bid
+                    sequential_id:
+                      type: integer
+                      format: int64
+                      description: Sequential trade identifier
+        '429':
+          description: Rate limit exceeded
+  /ticker:
+    get:
+      operationId: listTickers
+      summary: List pair tickers
+      description: >-
+        Returns current ticker information for specified trading pairs. No authentication required.
+      tags:
+        - Quotation
+      parameters:
+        - name: markets
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Comma-separated list of market identifiers (e.g., KRW-BTC,KRW-ETH)
+      responses:
+        '200':
+          description: List of tickers
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TickerResponse'
+        '429':
+          description: Rate limit exceeded
+  /ticker/all:
+    get:
+      operationId: listQuoteTickers
+      summary: List quote-currency tickers
+      description: >-
+        Returns ticker information for all trading pairs in the specified quote currencies.
+        No authentication required.
+      tags:
+        - Quotation
+      parameters:
+        - name: quote_currencies
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Comma-separated quote currencies (e.g., KRW,BTC,USDT)
+      responses:
+        '200':
+          description: List of tickers for all pairs in given quote currencies
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TickerResponse'
+        '429':
+          description: Rate limit exceeded
+  /orderbook:
+    get:
+      operationId: listOrderbooks
+      summary: List orderbooks
+      description: >-
+        Returns orderbook snapshots for specified trading pairs. No authentication required.
+      tags:
+        - Quotation
+      parameters:
+        - name: markets
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Comma-separated list of market identifiers
+        - name: level
+          in: query
+          required: false
+          schema:
+            type: number
+          description: Aggregation level for orderbook
+        - name: count
+          in: query
+          required: false
+          schema:
+            type: integer
+          description: Number of orderbook levels to return
+      responses:
+        '200':
+          description: List of orderbook snapshots
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    market:
+                      type: string
+                      description: Market identifier
+                    timestamp:
+                      type: integer
+                      format: int64
+                      description: Orderbook timestamp (milliseconds)
+                    total_ask_size:
+                      type: string
+                      description: Total ask size (decimal string)
+                    total_bid_size:
+                      type: string
+                      description: Total bid size (decimal string)
+                    orderbook_units:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          ask_price:
+                            type: string
+                          bid_price:
+                            type: string
+                          ask_size:
+                            type: string
+                          bid_size:
+                            type: string
+                    level:
+                      type: number
+                      description: Aggregation level applied
+        '429':
+          description: Rate limit exceeded
+  /orderbook/instruments:
+    get:
+      operationId: listOrderbookInstruments
+      summary: List orderbook instruments
+      description: >-
+        Returns orderbook instrument metadata including tick size and supported aggregation levels.
+        No authentication required.
+      tags:
+        - Quotation
+      parameters:
+        - name: markets
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Comma-separated list of market identifiers
+      responses:
+        '200':
+          description: List of orderbook instruments
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    market:
+                      type: string
+                    quote_currency:
+                      type: string
+                    tick_size:
+                      type: string
+                      description: Minimum price increment (decimal string)
+                    supported_levels:
+                      type: array
+                      items:
+                        type: number
+        '429':
+          description: Rate limit exceeded
+  /orderbook/supported_levels:
+    get:
+      operationId: listOrderbookLevels
+      summary: List supported orderbook levels
+      description: >-
+        Returns the supported aggregation levels for orderbooks of specified markets.
+        No authentication required.
+      tags:
+        - Quotation
+      parameters:
+        - name: markets
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Comma-separated list of market identifiers
+      responses:
+        '200':
+          description: Supported orderbook levels per market
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    market:
+                      type: string
+                    supported_levels:
+                      type: array
+                      items:
+                        type: number
+        '429':
+          description: Rate limit exceeded
+  /accounts:
+    get:
+      operationId: getBalance
+      summary: Get account balances
+      description: >-
+        Returns all asset balances for the authenticated account including available and locked amounts.
+      tags:
+        - Exchange - Account
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: List of account balances
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    currency:
+                      type: string
+                      description: Currency code (e.g., BTC, KRW)
+                    balance:
+                      type: string
+                      description: Available balance (decimal string)
+                    locked:
+                      type: string
+                      description: Locked balance (decimal string)
+                    avg_buy_price:
+                      type: string
+                      description: Average buy price (decimal string)
+                    avg_buy_price_modified:
+                      type: boolean
+                      description: Whether the average buy price has been manually modified
+                    unit_currency:
+                      type: string
+                      description: Quote currency for average buy price
+        '401':
+          description: Unauthorized — missing or invalid JWT
+  /orders/chance:
+    get:
+      operationId: getAvailableOrderInformation
+      summary: Get available order information
+      description: >-
+        Returns fee rates and account-level order constraints for the specified market.
+      tags:
+        - Exchange - Orders
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: market
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Market identifier (e.g., KRW-BTC)
+      responses:
+        '200':
+          description: Available order information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  bid_fee:
+                    type: string
+                    description: Bid (buy) fee rate (decimal string)
+                  ask_fee:
+                    type: string
+                    description: Ask (sell) fee rate (decimal string)
+                  maker_bid_fee:
+                    type: string
+                    description: Maker bid fee rate (decimal string)
+                  maker_ask_fee:
+                    type: string
+                    description: Maker ask fee rate (decimal string)
+                  market:
+                    type: object
+                    description: Market details
+                  bid_account:
+                    type: object
+                    description: Bid currency account details
+                  ask_account:
+                    type: object
+                    description: Ask currency account details
+        '401':
+          description: Unauthorized
+  /orders:
+    post:
+      operationId: createOrder
+      summary: Create order
+      description: >-
+        Places a new buy or sell order on the specified market. Order type determines
+        which price and volume fields are required.
+      tags:
+        - Exchange - Orders
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - market
+                - side
+                - ord_type
+              properties:
+                market:
+                  type: string
+                  description: Market identifier (e.g., KRW-BTC)
+                side:
+                  type: string
+                  enum: [bid, ask]
+                  description: Order side (bid=buy, ask=sell)
+                volume:
+                  type: string
+                  description: Order volume (decimal string; required for limit and market ask)
+                price:
+                  type: string
+                  description: Order price (decimal string; required for limit and price bid)
+                ord_type:
+                  type: string
+                  enum: [limit, price, market, best]
+                  description: >-
+                    Order type: limit (limit order), price (market buy by total KRW),
+                    market (market sell by volume), best (best price)
+                identifier:
+                  type: string
+                  description: Client-assigned order identifier (optional, must be unique)
+                time_in_force:
+                  type: string
+                  enum: [ioc, fok]
+                  description: Time-in-force policy (ioc or fok; only for best or limit orders)
+                smp_type:
+                  type: string
+                  enum: [cancel_newest, cancel_oldest, cancel_both]
+                  description: Self-Match Prevention type
+      responses:
+        '201':
+          description: Order created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderResponse'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '429':
+          description: Rate limit exceeded
+  /orders/test:
+    post:
+      operationId: createTestOrder
+      summary: Create test order
+      description: >-
+        Validates an order request without actually placing it on the exchange.
+        Same contract as createOrder but does not execute.
+      tags:
+        - Exchange - Orders
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - market
+                - side
+                - ord_type
+              properties:
+                market:
+                  type: string
+                side:
+                  type: string
+                  enum: [bid, ask]
+                volume:
+                  type: string
+                price:
+                  type: string
+                ord_type:
+                  type: string
+                  enum: [limit, price, market, best]
+                identifier:
+                  type: string
+                time_in_force:
+                  type: string
+                  enum: [ioc, fok]
+                smp_type:
+                  type: string
+                  enum: [cancel_newest, cancel_oldest, cancel_both]
+      responses:
+        '201':
+          description: Test order validation result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderResponse'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+  /orders/cancel_and_new:
+    post:
+      operationId: cancelAndReplaceOrder
+      summary: Cancel and replace order
+      description: >-
+        Atomically cancels an existing order and places a new order. Either
+        prev_order_uuid or prev_order_identifier must be provided (not both).
+      tags:
+        - Exchange - Orders
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - new_ord_type
+              properties:
+                prev_order_uuid:
+                  type: string
+                  description: UUID of the order to cancel (mutually exclusive with prev_order_identifier)
+                prev_order_identifier:
+                  type: string
+                  description: Client identifier of the order to cancel (mutually exclusive with prev_order_uuid)
+                new_ord_type:
+                  type: string
+                  enum: [limit, price, market, best]
+                  description: New order type
+                new_volume:
+                  type: string
+                  description: New order volume (decimal string)
+                new_price:
+                  type: string
+                  description: New order price (decimal string)
+                new_identifier:
+                  type: string
+                  description: New client order identifier
+                new_time_in_force:
+                  type: string
+                  enum: [ioc, fok]
+                new_smp_type:
+                  type: string
+                  enum: [cancel_newest, cancel_oldest, cancel_both]
+      responses:
+        '201':
+          description: Order cancelled and new order created
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/OrderResponse'
+                  - type: object
+                    properties:
+                      new_order_uuid:
+                        type: string
+                        description: UUID of the newly created replacement order
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+  /order:
+    get:
+      operationId: getOrder
+      summary: Get single order
+      description: >-
+        Returns the details of a single order by UUID or client identifier.
+        Either uuid or identifier must be provided.
+      tags:
+        - Exchange - Orders
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: uuid
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Order UUID (mutually exclusive with identifier)
+        - name: identifier
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Client order identifier (mutually exclusive with uuid)
+      responses:
+        '200':
+          description: Order details
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/OrderResponse'
+                  - type: object
+                    properties:
+                      trades:
+                        type: array
+                        description: List of individual trade fills
+                        items:
+                          type: object
+                          properties:
+                            market:
+                              type: string
+                            uuid:
+                              type: string
+                            price:
+                              type: string
+                            volume:
+                              type: string
+                            funds:
+                              type: string
+                            created_at:
+                              type: string
+                              format: date-time
+        '401':
+          description: Unauthorized
+        '404':
+          description: Order not found
+    delete:
+      operationId: cancelOrder
+      summary: Cancel single order
+      description: >-
+        Cancels an order by UUID or client identifier. Either uuid or identifier must be provided.
+      tags:
+        - Exchange - Orders
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: uuid
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Order UUID (mutually exclusive with identifier)
+        - name: identifier
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Client order identifier (mutually exclusive with uuid)
+      responses:
+        '200':
+          description: Cancelled order details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderResponse'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Order not found
+  /orders/uuids:
+    get:
+      operationId: listOrdersByIds
+      summary: List orders by IDs
+      description: >-
+        Returns details for multiple orders identified by UUID or client identifier arrays.
+        Either uuids[] or identifiers[] must be provided.
+      tags:
+        - Exchange - Orders
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: market
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Filter by market identifier
+        - name: uuids[]
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          description: Array of order UUIDs (mutually exclusive with identifiers[])
+        - name: identifiers[]
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          description: Array of client identifiers (mutually exclusive with uuids[])
+        - name: order_by
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [asc, desc]
+          description: Sort order
+      responses:
+        '200':
+          description: List of orders
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OrderResponse'
+        '401':
+          description: Unauthorized
+    delete:
+      operationId: cancelOrdersByIds
+      summary: Cancel orders by IDs
+      description: >-
+        Cancels multiple orders identified by UUID or client identifier arrays.
+        Either uuids[] or identifiers[] must be provided.
+      tags:
+        - Exchange - Orders
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: uuids[]
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          description: Array of order UUIDs (mutually exclusive with identifiers[])
+        - name: identifiers[]
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          description: Array of client identifiers (mutually exclusive with uuids[])
+      responses:
+        '200':
+          description: Cancellation results
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: array
+                    items:
+                      type: string
+                    description: UUIDs of successfully cancelled orders
+                  failed:
+                    type: array
+                    items:
+                      type: string
+                    description: UUIDs of orders that could not be cancelled
+        '401':
+          description: Unauthorized
+  /orders/open:
+    get:
+      operationId: listOpenOrders
+      summary: List open orders
+      description: >-
+        Returns all open (unfilled or partially filled) orders for the authenticated account.
+      tags:
+        - Exchange - Orders
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: market
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Filter by market identifier
+        - name: state
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [wait, watch]
+          description: Filter by order state
+        - name: states[]
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+              enum: [wait, watch]
+          description: Filter by multiple order states
+        - name: page
+          in: query
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+          description: Page number for pagination
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+          description: Number of results per page
+        - name: order_by
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [asc, desc]
+          description: Sort order
+      responses:
+        '200':
+          description: List of open orders
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OrderResponse'
+        '401':
+          description: Unauthorized
+    delete:
+      operationId: batchCancelOrders
+      summary: Batch cancel open orders
+      description: >-
+        Cancels multiple open orders matching the specified criteria. Up to 300 orders
+        can be cancelled per request.
+      tags:
+        - Exchange - Orders
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: quote_currencies
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Filter by quote currencies
+        - name: cancel_side
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [bid, ask]
+          description: Only cancel orders on this side
+        - name: count
+          in: query
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 300
+          description: Maximum number of orders to cancel
+        - name: order_by
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [asc, desc]
+          description: Ordering for selecting orders to cancel
+        - name: pairs
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Comma-separated list of market pairs to include
+        - name: exclude_pairs
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Comma-separated list of market pairs to exclude
+      responses:
+        '200':
+          description: Batch cancellation results
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: array
+                    items:
+                      type: string
+                  failed:
+                    type: array
+                    items:
+                      type: string
+        '401':
+          description: Unauthorized
+        '429':
+          description: Rate limit exceeded (1 request per 2 seconds)
+  /orders/closed:
+    get:
+      operationId: listClosedOrders
+      summary: List closed orders
+      description: >-
+        Returns completed (done or cancelled) orders for the authenticated account.
+      tags:
+        - Exchange - Orders
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: market
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Filter by market identifier
+        - name: state
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [done, cancel]
+          description: Filter by order state
+        - name: states[]
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+              enum: [done, cancel]
+          description: Filter by multiple order states
+        - name: start_time
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date-time
+          description: Start of time range
+        - name: end_time
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date-time
+          description: End of time range
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 1000
+          description: Number of results to return
+        - name: order_by
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [asc, desc]
+          description: Sort order
+      responses:
+        '200':
+          description: List of closed orders
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OrderResponse'
+        '401':
+          description: Unauthorized
+  /withdraws/chance:
+    get:
+      operationId: getAvailableWithdrawalInformation
+      summary: Get available withdrawal information
+      description: >-
+        Returns withdrawal limits and member level information for the specified currency
+        and network type.
+      tags:
+        - Exchange - Withdrawals
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: currency
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Currency code (e.g., BTC)
+        - name: net_type
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Network type (e.g., BTC, ERC20)
+      responses:
+        '200':
+          description: Available withdrawal information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  member_level:
+                    type: object
+                    description: Account member level details
+                  currency:
+                    type: object
+                    description: Currency information
+                  account:
+                    type: object
+                    description: Account balance for this currency
+                  withdraw_limit:
+                    type: object
+                    description: Withdrawal limit details
+        '401':
+          description: Unauthorized
+  /withdraws/coin:
+    post:
+      operationId: withdrawCoin
+      summary: Request digital asset withdrawal
+      description: >-
+        Initiates a withdrawal of digital assets to an allowlisted address.
+      tags:
+        - Exchange - Withdrawals
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - currency
+                - net_type
+                - amount
+                - address
+              properties:
+                currency:
+                  type: string
+                  description: Currency code
+                net_type:
+                  type: string
+                  description: Network type
+                amount:
+                  type: string
+                  description: Withdrawal amount (decimal string)
+                address:
+                  type: string
+                  description: Destination wallet address
+                secondary_address:
+                  type: string
+                  description: Secondary address (memo/tag) if required by network
+                transaction_type:
+                  type: string
+                  enum: [default, internal]
+                  description: Transaction type
+      responses:
+        '201':
+          description: Withdrawal request created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WithdrawalResponse'
+        '401':
+          description: Unauthorized
+    delete:
+      operationId: cancelWithdrawal
+      summary: Cancel digital asset withdrawal
+      description: >-
+        Cancels a pending digital asset withdrawal by UUID.
+      tags:
+        - Exchange - Withdrawals
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: uuid
+          in: query
+          required: true
+          schema:
+            type: string
+          description: UUID of the withdrawal to cancel
+      responses:
+        '200':
+          description: Cancelled withdrawal details
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/WithdrawalResponse'
+                  - type: object
+                    properties:
+                      is_cancelable:
+                        type: boolean
+                        description: Whether the withdrawal is eligible for cancellation
+        '401':
+          description: Unauthorized
+        '404':
+          description: Withdrawal not found
+  /withdraws/krw:
+    post:
+      operationId: withdrawKrw
+      summary: Request KRW withdrawal
+      description: >-
+        Initiates a KRW fiat withdrawal with two-factor authentication verification.
+      tags:
+        - Exchange - Withdrawals
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - amount
+                - two_factor_type
+              properties:
+                amount:
+                  type: string
+                  description: Withdrawal amount in KRW (decimal string)
+                two_factor_type:
+                  type: string
+                  enum: [kakao, naver, hana]
+                  description: Two-factor authentication provider
+      responses:
+        '201':
+          description: KRW withdrawal request created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WithdrawalResponse'
+        '401':
+          description: Unauthorized
+  /withdraw:
+    get:
+      operationId: getWithdrawal
+      summary: Get withdrawal
+      description: >-
+        Returns details for a single withdrawal by UUID, transaction ID, or currency.
+      tags:
+        - Exchange - Withdrawals
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: uuid
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Withdrawal UUID
+        - name: txid
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Blockchain transaction ID
+        - name: currency
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Currency code
+      responses:
+        '200':
+          description: Withdrawal details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WithdrawalResponse'
+        '401':
+          description: Unauthorized
+  /withdraws:
+    get:
+      operationId: listWithdrawals
+      summary: List withdrawals
+      description: >-
+        Returns a list of withdrawals for the authenticated account with optional filters.
+      tags:
+        - Exchange - Withdrawals
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: currency
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Filter by currency code
+        - name: state
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Filter by withdrawal state
+        - name: uuids[]
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          description: Filter by withdrawal UUIDs
+        - name: txids[]
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          description: Filter by transaction IDs
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+          description: Number of results per page
+        - name: page
+          in: query
+          required: false
+          schema:
+            type: integer
+          description: Page number
+        - name: order_by
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [asc, desc]
+          description: Sort order
+        - name: from
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date-time
+          description: Start of date range
+        - name: to
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date-time
+          description: End of date range
+      responses:
+        '200':
+          description: List of withdrawals
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/WithdrawalResponse'
+        '401':
+          description: Unauthorized
+  /withdraws/coin_addresses:
+    get:
+      operationId: listWithdrawalAddresses
+      summary: List withdrawal addresses
+      description: >-
+        Returns all withdrawal addresses registered in the authenticated account's allowlist.
+      tags:
+        - Exchange - Withdrawals
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: List of allowlisted withdrawal addresses
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    currency:
+                      type: string
+                      description: Currency code
+                    net_type:
+                      type: string
+                      description: Network type
+                    network_name:
+                      type: string
+                      description: Network name
+                    withdraw_address:
+                      type: string
+                      description: Withdrawal address
+        '401':
+          description: Unauthorized
+  /deposits/chance/coin:
+    get:
+      operationId: getAvailableDepositInformation
+      summary: Get available deposit information
+      description: >-
+        Returns deposit availability status, minimum amounts, and confirmation requirements
+        for the specified currency and network.
+      tags:
+        - Exchange - Deposits
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: currency
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Currency code
+        - name: net_type
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Network type
+      responses:
+        '200':
+          description: Deposit availability information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  currency:
+                    type: string
+                  net_type:
+                    type: string
+                  is_deposit_possible:
+                    type: boolean
+                    description: Whether deposits are currently possible
+                  deposit_impossible_reason:
+                    type: string
+                    nullable: true
+                    description: Reason deposits are disabled (if applicable)
+                  minimum_deposit_amount:
+                    type: string
+                    description: Minimum deposit amount (decimal string)
+                  minimum_deposit_confirmations:
+                    type: integer
+                    description: Minimum blockchain confirmations required
+                  decimal_precision:
+                    type: integer
+                    description: Decimal precision for the currency
+        '401':
+          description: Unauthorized
+  /deposits/generate_coin_address:
+    post:
+      operationId: createDepositAddress
+      summary: Create deposit address
+      description: >-
+        Generates a new deposit address for the specified currency and network type.
+        Address generation may be asynchronous; poll get_deposit_address if address is not
+        immediately returned.
+      tags:
+        - Exchange - Deposits
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - currency
+                - net_type
+              properties:
+                currency:
+                  type: string
+                  description: Currency code
+                net_type:
+                  type: string
+                  description: Network type
+      responses:
+        '201':
+          description: Deposit address created or pending
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  currency:
+                    type: string
+                  net_type:
+                    type: string
+                  deposit_address:
+                    type: string
+                    nullable: true
+                    description: Generated deposit address (may be null if still generating)
+        '401':
+          description: Unauthorized
+  /deposits/coin_address:
+    get:
+      operationId: getDepositAddress
+      summary: Get deposit address
+      description: >-
+        Returns the deposit address for the specified currency and network type.
+      tags:
+        - Exchange - Deposits
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: currency
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Currency code
+        - name: net_type
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Network type
+      responses:
+        '200':
+          description: Deposit address details
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  currency:
+                    type: string
+                  net_type:
+                    type: string
+                  deposit_address:
+                    type: string
+                    nullable: true
+        '401':
+          description: Unauthorized
+  /deposits/coin_addresses:
+    get:
+      operationId: listDepositAddresses
+      summary: List deposit addresses
+      description: >-
+        Returns all deposit addresses for the authenticated account across all currencies
+        and networks.
+      tags:
+        - Exchange - Deposits
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: List of deposit addresses
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    currency:
+                      type: string
+                    net_type:
+                      type: string
+                    deposit_address:
+                      type: string
+                      nullable: true
+        '401':
+          description: Unauthorized
+  /deposit:
+    get:
+      operationId: getDeposit
+      summary: Get deposit
+      description: >-
+        Returns details for a single deposit by currency, UUID, or transaction ID.
+      tags:
+        - Exchange - Deposits
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: currency
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Currency code
+        - name: uuid
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Deposit UUID
+        - name: txid
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Blockchain transaction ID
+      responses:
+        '200':
+          description: Deposit details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DepositResponse'
+        '401':
+          description: Unauthorized
+  /deposits:
+    get:
+      operationId: listDeposits
+      summary: List deposits
+      description: >-
+        Returns a list of deposits for the authenticated account with optional filters.
+      tags:
+        - Exchange - Deposits
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: currency
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Filter by currency code
+        - name: state
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Filter by deposit state
+        - name: uuids[]
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          description: Filter by deposit UUIDs
+        - name: txids[]
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          description: Filter by blockchain transaction IDs
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+          description: Number of results per page
+        - name: page
+          in: query
+          required: false
+          schema:
+            type: integer
+          description: Page number
+        - name: order_by
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [asc, desc]
+          description: Sort order
+        - name: from
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date-time
+          description: Start of date range
+        - name: to
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date-time
+          description: End of date range
+      responses:
+        '200':
+          description: List of deposits
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DepositResponse'
+        '401':
+          description: Unauthorized
+  /deposits/krw:
+    post:
+      operationId: depositKrw
+      summary: Request KRW deposit
+      description: >-
+        Initiates a KRW fiat deposit with two-factor authentication verification.
+      tags:
+        - Exchange - Deposits
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - amount
+                - two_factor_type
+              properties:
+                amount:
+                  type: string
+                  description: Deposit amount in KRW (decimal string)
+                two_factor_type:
+                  type: string
+                  enum: [kakao, naver, hana]
+                  description: Two-factor authentication provider
+      responses:
+        '201':
+          description: KRW deposit request created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DepositResponse'
+        '401':
+          description: Unauthorized
+  /travel_rule/vasps:
+    get:
+      operationId: listTravelRuleVasps
+      summary: List Travel Rule VASPs
+      description: >-
+        Returns the list of Virtual Asset Service Providers (VASPs) registered for
+        Travel Rule compliance, including deposit and withdrawal availability.
+      tags:
+        - Exchange - Travel Rule
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: List of VASPs
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    depositable:
+                      type: boolean
+                      description: Whether deposits from this VASP are possible
+                    vasp_uuid:
+                      type: string
+                      description: VASP unique identifier
+                    vasp_name:
+                      type: string
+                      description: VASP display name
+                    withdrawable:
+                      type: boolean
+                      description: Whether withdrawals to this VASP are possible
+        '401':
+          description: Unauthorized
+  /travel_rule/deposit/uuid:
+    post:
+      operationId: verifyTravelRuleByUuid
+      summary: Verify deposit owner by UUID
+      description: >-
+        Verifies the account ownership for a deposit under Travel Rule requirements using
+        the deposit UUID. Rate limit is 1 request per 10 minutes per deposit case.
+      tags:
+        - Exchange - Travel Rule
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - deposit_uuid
+                - vasp_uuid
+              properties:
+                deposit_uuid:
+                  type: string
+                  description: Upbit deposit UUID to verify
+                vasp_uuid:
+                  type: string
+                  description: Originating VASP UUID
+      responses:
+        '200':
+          description: Travel Rule verification result
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  deposit_uuid:
+                    type: string
+                  deposit_state:
+                    type: string
+                  verification_result:
+                    type: string
+        '401':
+          description: Unauthorized
+        '429':
+          description: Rate limit exceeded (1 per 10 min per deposit case)
+  /travel_rule/deposit/txid:
+    post:
+      operationId: verifyTravelRuleByTxid
+      summary: Verify deposit owner by TxID
+      description: >-
+        Verifies the account ownership for a deposit under Travel Rule requirements using
+        the blockchain transaction ID. Rate limit is 1 request per 10 minutes per deposit case.
+      tags:
+        - Exchange - Travel Rule
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - vasp_uuid
+                - txid
+                - currency
+                - net_type
+              properties:
+                vasp_uuid:
+                  type: string
+                  description: Originating VASP UUID
+                txid:
+                  type: string
+                  description: Blockchain transaction ID
+                currency:
+                  type: string
+                  description: Currency code
+                net_type:
+                  type: string
+                  description: Network type
+      responses:
+        '200':
+          description: Travel Rule verification result
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  deposit_uuid:
+                    type: string
+                  verification_result:
+                    type: string
+                  deposit_state:
+                    type: string
+        '401':
+          description: Unauthorized
+        '429':
+          description: Rate limit exceeded
+  /status/wallet:
+    get:
+      operationId: getServiceStatus
+      summary: Get wallet service status
+      description: >-
+        Returns the current operational status of wallet services for all currencies
+        including block sync status.
+      tags:
+        - Exchange - Service
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: List of wallet service statuses
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    currency:
+                      type: string
+                      description: Currency code
+                    wallet_state:
+                      type: string
+                      description: Wallet state (e.g., working, withdraw_only, deposit_only, paused)
+                    block_elapsed_minutes:
+                      type: number
+                      nullable: true
+                      description: Minutes since last block (null if N/A)
+                    net_type:
+                      type: string
+                      description: Network type
+                    network_name:
+                      type: string
+                      description: Network name
+        '401':
+          description: Unauthorized
+  /api_keys:
+    get:
+      operationId: listApiKeys
+      summary: List API keys
+      description: >-
+        Returns all API keys associated with the authenticated account along with
+        their expiration dates.
+      tags:
+        - Exchange - Service
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: List of API keys
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    access_key:
+                      type: string
+                      description: API access key (masked)
+                    expire_at:
+                      type: string
+                      format: date-time
+                      description: API key expiration time
+        '401':
+          description: Unauthorized
