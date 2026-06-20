@@ -10,7 +10,7 @@ tags:
   - WebSocket
 type: Index
 kind: company
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 access: 3rd-Party
 created: '2026-06-13'
 modified: '2026-06-13'
@@ -32,7 +32,7 @@ apis:
       - Orderbook
       - Tickers
       - Trades
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     baseURL: https://api.upbit.com
     humanURL: https://global-docs.upbit.com/reference
     properties:
@@ -69,7 +69,7 @@ apis:
       - Orders
       - Trading
       - Withdrawals
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     baseURL: https://api.upbit.com
     humanURL: https://global-docs.upbit.com/reference
     properties:
@@ -116,7 +116,7 @@ apis:
       - Real-time
       - Trades
       - WebSocket
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     baseURL: wss://api.upbit.com
     humanURL: https://global-docs.upbit.com/reference
     properties:
