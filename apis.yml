@@ -39,7 +39,7 @@ apis:
       - url: https://global-docs.upbit.com/reference
         type: Documentation
       - url: https://global-docs.upbit.com/llms.txt
-        type: LLMsTxt
+        type: LlmsText
       - url: https://raw.githubusercontent.com/api-evangelist/upbit/refs/heads/main/openapi/openapi.yml
         type: OpenAPI
     description: >-
@@ -80,7 +80,7 @@ apis:
       - url: https://global-docs.upbit.com/docs/api-key
         type: Authentication
       - url: https://global-docs.upbit.com/llms.txt
-        type: LLMsTxt
+        type: LlmsText
       - url: https://raw.githubusercontent.com/api-evangelist/upbit/refs/heads/main/openapi/openapi.yml
         type: OpenAPI
     description: >-
@@ -123,7 +123,7 @@ apis:
       - url: https://global-docs.upbit.com/reference
         type: Documentation
       - url: https://global-docs.upbit.com/llms.txt
-        type: LLMsTxt
+        type: LlmsText
     description: >-
       The Upbit WebSocket API delivers real-time streaming data for market and account events. Public
       streams include live tickers, full orderbook updates, OHLCV candles, and trade feeds for any trading
@@ -146,7 +146,7 @@ apis:
 common:
   - type: Website
     url: https://upbit.com
-  - type: Developer Portal
+  - type: DeveloperPortal
     url: https://global-docs.upbit.com/
   - type: Documentation
     url: https://global-docs.upbit.com/reference
@@ -166,7 +166,7 @@ common:
     url: https://upbit.com/service_center/privacy_policy
   - type: Support
     url: https://global-docs.upbit.com/docs/support
-  - type: LLMsTxt
+  - type: LlmsText
     url: https://global-docs.upbit.com/llms.txt
   - type: Announcements
     url: https://global-docs.upbit.com/docs/announcements
