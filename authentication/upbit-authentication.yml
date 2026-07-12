@@ -1,0 +1,15 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/openapi.yml
+summary:
+  types:
+  - http
+schemes:
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  bearerFormat: JWT
+  description: JWT HS512 token generated from Access Key and Secret Key. Include query_hash
+    and query_hash_alg=SHA512 in the payload when query parameters or JSON body exist.
+  sources:
+  - openapi/openapi.yml

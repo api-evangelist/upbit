@@ -144,6 +144,12 @@ apis:
       - Build portfolio dashboards that react to balance changes
       - Monitor order fills in event-driven trading systems
 common:
+  - type: VulnerabilityDisclosure
+    url: security/upbit-vulnerability-disclosure.yml
+  - type: DomainSecurity
+    url: security/upbit-domain-security.yml
+  - type: Authentication
+    url: authentication/upbit-authentication.yml
   - type: Website
     url: https://upbit.com
   - type: DeveloperPortal
