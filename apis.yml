@@ -144,6 +144,8 @@ apis:
       - Build portfolio dashboards that react to balance changes
       - Monitor order fills in event-driven trading systems
 common:
+  - type: AgenticAccess
+    url: agentic-access/upbit-agentic-access.yml
   - type: VulnerabilityDisclosure
     url: security/upbit-vulnerability-disclosure.yml
   - type: DomainSecurity
