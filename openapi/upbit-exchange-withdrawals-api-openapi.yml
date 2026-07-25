@@ -1,0 +1,388 @@
+openapi: 3.0.3
+info:
+  title: Upbit REST Exchange - Account Exchange - Withdrawals API
+  description: Upbit is a leading South Korean cryptocurrency exchange operated by Dunamu Inc., offering REST and WebSocket APIs for market data retrieval, order management, account balances, and transaction history. Developers must register an Upbit account with security level 2 or higher to issue API keys. Authenticated requests use JWT bearer tokens (HS512) generated from an Access Key and Secret Key pair, while public quotation endpoints (market data, tickers, orderbooks, candles) require no authentication. Upbit supports KRW, BTC, and USDT trading markets and complies with travel-rule regulations for digital asset transfers.
+  version: 1.3.2
+  termsOfService: https://upbit.com/service_center/terms
+  contact:
+    url: https://global-docs.upbit.com/docs/support
+  license:
+    name: Upbit Open API Usage Agreement
+    url: https://upbit.com/service_center/terms
+servers:
+- url: https://api.upbit.com/v1
+  description: Global API endpoint
+security: []
+tags:
+- name: Exchange - Withdrawals
+  description: Withdrawal management endpoints — JWT required
+paths:
+  /withdraws/chance:
+    get:
+      operationId: getAvailableWithdrawalInformation
+      summary: Get available withdrawal information
+      description: Returns withdrawal limits and member level information for the specified currency and network type.
+      tags:
+      - Exchange - Withdrawals
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: currency
+        in: query
+        required: true
+        schema:
+          type: string
+        description: Currency code (e.g., BTC)
+      - name: net_type
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Network type (e.g., BTC, ERC20)
+      responses:
+        '200':
+          description: Available withdrawal information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  member_level:
+                    type: object
+                    description: Account member level details
+                  currency:
+                    type: object
+                    description: Currency information
+                  account:
+                    type: object
+                    description: Account balance for this currency
+                  withdraw_limit:
+                    type: object
+                    description: Withdrawal limit details
+        '401':
+          description: Unauthorized
+  /withdraws/coin:
+    post:
+      operationId: withdrawCoin
+      summary: Request digital asset withdrawal
+      description: Initiates a withdrawal of digital assets to an allowlisted address.
+      tags:
+      - Exchange - Withdrawals
+      security:
+      - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - currency
+              - net_type
+              - amount
+              - address
+              properties:
+                currency:
+                  type: string
+                  description: Currency code
+                net_type:
+                  type: string
+                  description: Network type
+                amount:
+                  type: string
+                  description: Withdrawal amount (decimal string)
+                address:
+                  type: string
+                  description: Destination wallet address
+                secondary_address:
+                  type: string
+                  description: Secondary address (memo/tag) if required by network
+                transaction_type:
+                  type: string
+                  enum:
+                  - default
+                  - internal
+                  description: Transaction type
+      responses:
+        '201':
+          description: Withdrawal request created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WithdrawalResponse'
+        '401':
+          description: Unauthorized
+    delete:
+      operationId: cancelWithdrawal
+      summary: Cancel digital asset withdrawal
+      description: Cancels a pending digital asset withdrawal by UUID.
+      tags:
+      - Exchange - Withdrawals
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: uuid
+        in: query
+        required: true
+        schema:
+          type: string
+        description: UUID of the withdrawal to cancel
+      responses:
+        '200':
+          description: Cancelled withdrawal details
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: '#/components/schemas/WithdrawalResponse'
+                - type: object
+                  properties:
+                    is_cancelable:
+                      type: boolean
+                      description: Whether the withdrawal is eligible for cancellation
+        '401':
+          description: Unauthorized
+        '404':
+          description: Withdrawal not found
+  /withdraws/krw:
+    post:
+      operationId: withdrawKrw
+      summary: Request KRW withdrawal
+      description: Initiates a KRW fiat withdrawal with two-factor authentication verification.
+      tags:
+      - Exchange - Withdrawals
+      security:
+      - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - amount
+              - two_factor_type
+              properties:
+                amount:
+                  type: string
+                  description: Withdrawal amount in KRW (decimal string)
+                two_factor_type:
+                  type: string
+                  enum:
+                  - kakao
+                  - naver
+                  - hana
+                  description: Two-factor authentication provider
+      responses:
+        '201':
+          description: KRW withdrawal request created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WithdrawalResponse'
+        '401':
+          description: Unauthorized
+  /withdraw:
+    get:
+      operationId: getWithdrawal
+      summary: Get withdrawal
+      description: Returns details for a single withdrawal by UUID, transaction ID, or currency.
+      tags:
+      - Exchange - Withdrawals
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: uuid
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Withdrawal UUID
+      - name: txid
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Blockchain transaction ID
+      - name: currency
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Currency code
+      responses:
+        '200':
+          description: Withdrawal details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WithdrawalResponse'
+        '401':
+          description: Unauthorized
+  /withdraws:
+    get:
+      operationId: listWithdrawals
+      summary: List withdrawals
+      description: Returns a list of withdrawals for the authenticated account with optional filters.
+      tags:
+      - Exchange - Withdrawals
+      security:
+      - bearerAuth: []
+      parameters:
+      - name: currency
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Filter by currency code
+      - name: state
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Filter by withdrawal state
+      - name: uuids[]
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+        description: Filter by withdrawal UUIDs
+      - name: txids[]
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+        description: Filter by transaction IDs
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: Number of results per page
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: Page number
+      - name: order_by
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - asc
+          - desc
+        description: Sort order
+      - name: from
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+        description: Start of date range
+      - name: to
+        in: query
+        required: false
+        schema:
+          type: string
+          format: date-time
+        description: End of date range
+      responses:
+        '200':
+          description: List of withdrawals
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/WithdrawalResponse'
+        '401':
+          description: Unauthorized
+  /withdraws/coin_addresses:
+    get:
+      operationId: listWithdrawalAddresses
+      summary: List withdrawal addresses
+      description: Returns all withdrawal addresses registered in the authenticated account's allowlist.
+      tags:
+      - Exchange - Withdrawals
+      security:
+      - bearerAuth: []
+      responses:
+        '200':
+          description: List of allowlisted withdrawal addresses
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    currency:
+                      type: string
+                      description: Currency code
+                    net_type:
+                      type: string
+                      description: Network type
+                    network_name:
+                      type: string
+                      description: Network name
+                    withdraw_address:
+                      type: string
+                      description: Withdrawal address
+        '401':
+          description: Unauthorized
+components:
+  schemas:
+    WithdrawalResponse:
+      type: object
+      properties:
+        type:
+          type: string
+          description: Transaction type
+        uuid:
+          type: string
+          description: Withdrawal UUID
+        currency:
+          type: string
+          description: Currency code
+        txid:
+          type: string
+          description: Transaction ID
+        state:
+          type: string
+          description: Withdrawal state
+        created_at:
+          type: string
+          format: date-time
+          description: Creation time
+        done_at:
+          type: string
+          format: date-time
+          nullable: true
+          description: Completion time
+        amount:
+          type: string
+          description: Withdrawal amount (decimal string)
+        fee:
+          type: string
+          description: Withdrawal fee (decimal string)
+        transaction_type:
+          type: string
+          enum:
+          - default
+          - internal
+          description: Transaction type (default or internal)
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT HS512 token generated from Access Key and Secret Key. Include query_hash and query_hash_alg=SHA512 in the payload when query parameters or JSON body exist.
+externalDocs:
+  description: Upbit Developer Center
+  url: https://global-docs.upbit.com/reference

@@ -1,0 +1,156 @@
+openapi: 3.0.3
+info:
+  title: Upbit REST Exchange - Account Exchange - Travel Rule API
+  description: Upbit is a leading South Korean cryptocurrency exchange operated by Dunamu Inc., offering REST and WebSocket APIs for market data retrieval, order management, account balances, and transaction history. Developers must register an Upbit account with security level 2 or higher to issue API keys. Authenticated requests use JWT bearer tokens (HS512) generated from an Access Key and Secret Key pair, while public quotation endpoints (market data, tickers, orderbooks, candles) require no authentication. Upbit supports KRW, BTC, and USDT trading markets and complies with travel-rule regulations for digital asset transfers.
+  version: 1.3.2
+  termsOfService: https://upbit.com/service_center/terms
+  contact:
+    url: https://global-docs.upbit.com/docs/support
+  license:
+    name: Upbit Open API Usage Agreement
+    url: https://upbit.com/service_center/terms
+servers:
+- url: https://api.upbit.com/v1
+  description: Global API endpoint
+security: []
+tags:
+- name: Exchange - Travel Rule
+  description: Travel Rule compliance endpoints — JWT required
+paths:
+  /travel_rule/vasps:
+    get:
+      operationId: listTravelRuleVasps
+      summary: List Travel Rule VASPs
+      description: Returns the list of Virtual Asset Service Providers (VASPs) registered for Travel Rule compliance, including deposit and withdrawal availability.
+      tags:
+      - Exchange - Travel Rule
+      security:
+      - bearerAuth: []
+      responses:
+        '200':
+          description: List of VASPs
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    depositable:
+                      type: boolean
+                      description: Whether deposits from this VASP are possible
+                    vasp_uuid:
+                      type: string
+                      description: VASP unique identifier
+                    vasp_name:
+                      type: string
+                      description: VASP display name
+                    withdrawable:
+                      type: boolean
+                      description: Whether withdrawals to this VASP are possible
+        '401':
+          description: Unauthorized
+  /travel_rule/deposit/uuid:
+    post:
+      operationId: verifyTravelRuleByUuid
+      summary: Verify deposit owner by UUID
+      description: Verifies the account ownership for a deposit under Travel Rule requirements using the deposit UUID. Rate limit is 1 request per 10 minutes per deposit case.
+      tags:
+      - Exchange - Travel Rule
+      security:
+      - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - deposit_uuid
+              - vasp_uuid
+              properties:
+                deposit_uuid:
+                  type: string
+                  description: Upbit deposit UUID to verify
+                vasp_uuid:
+                  type: string
+                  description: Originating VASP UUID
+      responses:
+        '200':
+          description: Travel Rule verification result
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  deposit_uuid:
+                    type: string
+                  deposit_state:
+                    type: string
+                  verification_result:
+                    type: string
+        '401':
+          description: Unauthorized
+        '429':
+          description: Rate limit exceeded (1 per 10 min per deposit case)
+  /travel_rule/deposit/txid:
+    post:
+      operationId: verifyTravelRuleByTxid
+      summary: Verify deposit owner by TxID
+      description: Verifies the account ownership for a deposit under Travel Rule requirements using the blockchain transaction ID. Rate limit is 1 request per 10 minutes per deposit case.
+      tags:
+      - Exchange - Travel Rule
+      security:
+      - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - vasp_uuid
+              - txid
+              - currency
+              - net_type
+              properties:
+                vasp_uuid:
+                  type: string
+                  description: Originating VASP UUID
+                txid:
+                  type: string
+                  description: Blockchain transaction ID
+                currency:
+                  type: string
+                  description: Currency code
+                net_type:
+                  type: string
+                  description: Network type
+      responses:
+        '200':
+          description: Travel Rule verification result
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  deposit_uuid:
+                    type: string
+                  verification_result:
+                    type: string
+                  deposit_state:
+                    type: string
+        '401':
+          description: Unauthorized
+        '429':
+          description: Rate limit exceeded
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT HS512 token generated from Access Key and Secret Key. Include query_hash and query_hash_alg=SHA512 in the payload when query parameters or JSON body exist.
+externalDocs:
+  description: Upbit Developer Center
+  url: https://global-docs.upbit.com/reference
