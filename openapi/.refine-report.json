@@ -1,0 +1,26 @@
+{
+  "provider": "upbit",
+  "sources": [
+    "upbit-exchange-account-api-openapi.yml",
+    "upbit-exchange-deposits-api-openapi.yml",
+    "upbit-exchange-orders-api-openapi.yml",
+    "upbit-exchange-service-api-openapi.yml",
+    "upbit-exchange-travel-rule-api-openapi.yml",
+    "upbit-exchange-withdrawals-api-openapi.yml",
+    "upbit-quotation-api-openapi.yml"
+  ],
+  "outputs": [
+    "upbit-exchange-account-api-openapi.yml",
+    "upbit-exchange-deposits-api-openapi.yml",
+    "upbit-exchange-orders-api-openapi.yml",
+    "upbit-exchange-service-api-openapi.yml",
+    "upbit-exchange-travel-rule-api-openapi.yml",
+    "upbit-exchange-withdrawals-api-openapi.yml",
+    "upbit-quotation-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
