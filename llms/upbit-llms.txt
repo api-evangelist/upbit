@@ -1,0 +1,119 @@
+# Upbit Developer Center Documentation
+
+> Documentation for Upbit Developer Center
+
+## Guides
+- [Upbit Developer Center Guide](https://global-docs.upbit.com/docs/developer-center-overview.md): The Upbit Developer Center is the official documentation hub for developers building digital asset trading, algorithmic trading, and automated asset management solutions by integrating Upbit’s diverse technology tools.
+- [Glossary](https://global-docs.upbit.com/docs/terms.md): This section provides definitions and explanations of fundamental terms used in the Upbit Developer Center.
+- [Integrating Upbit APIs with AI](https://global-docs.upbit.com/docs/ai-guide.md): Explore and utilize Upbit Developer Center documentation more efficiently with AI tools.
+- [Make Your First Upbit API Call](https://global-docs.upbit.com/docs/first-quotation-api-call.md): Following this quick REST API test guide, you can make your first Upbit API call easily and get a successful response.
+- [Issue an API Key](https://global-docs.upbit.com/docs/api-key.md): This guide explains the issuance process of an API Key.
+- [Call Your First Authenticated API](https://global-docs.upbit.com/docs/first-exchange-api-call.md): With the Access Key and Secret Key from your issued API Key, you can call authenticated APIs.
+- [Development Environment Setup](https://global-docs.upbit.com/docs/dev-environment.md): This guide provides language-specific environment setup instructions and introduces key libraries for API integration.
+- [REST API Integration Best Practices](https://global-docs.upbit.com/docs/rest-api-best-practice.md): This document provides guidelines for implementing Upbit REST API integration. It covers essential implementation requirements such as authentication, rate limits, and error handling to help ensure stable and reliable integration.
+- [WebSocket Integration Best Practices](https://global-docs.upbit.com/docs/websocket-best-practice.md): This document serves as a guideline for implementing Upbit WebSocket integration, providing implementation requirements to consider during development, such as authentication, connection management, and request rate limiting.
+- [Creating a Real-Time Candlestick Chart Using WebSocket](https://global-docs.upbit.com/docs/how-to-subscribe-quotation-stream.md): This tutorial demonstrates how to subscribe to Upbit’s real-time candlestick stream using WebSocket and visualize the data with a live chart.
+- [Exporting Market Data to CSV Using the Candle API](https://global-docs.upbit.com/docs/how-to-download-candle-data.md): Learn how to retrieve candle data for a specified period using Upbit’s Candle API and export it to a CSV file.
+- [24-Hour Cumulative Trade Price](https://global-docs.upbit.com/docs/24-hour-accumulated-trade-volume.md): The Upbit API provides a variety of data to support convenient trade analysis. Below is an example that retrieves the 24-hour accumulated trading price.
+- [RSI Indicator Calculation Tutorial](https://global-docs.upbit.com/docs/rsi-indicator-calculation-tutorial.md): Learn what the RSI is and how to calculate it using Upbit market data from the API response with Python.
+- [Limit Bid Order Tutorial](https://global-docs.upbit.com/docs/limit-bid-order-creation.md): This guide shows you how to place a limit bid order for a digital asset using the Upbit API.
+- [Market Ask Order Tutorial](https://global-docs.upbit.com/docs/market-ask-order-creation.md): This tutorial shows how to create a market sell order for digital assets that a user already holds, using the Upbit API.
+- [Account Owner Verification Automation](https://global-docs.upbit.com/docs/address-owner-verification.md): When a user deposits digital assets from other exchange (VASP, Virtual Asset Service Provider) into Upbit, the VASP is required to verify that the depositor and the account owner are the same person to prevent money laundering.   This section explains how to use the Upbit API to automate the account owner verification process.
+- [Digital Asset Withdrawal ](https://global-docs.upbit.com/docs/digital-asset-withdrawal.md): Learn how to use the API to withdraw digital assets held in Upbit to other exchange.
+- [Python](https://global-docs.upbit.com/docs/python-sdk.md): This guide explains how to call APIs using the Upbit SDK in a Python environment.
+- [TypeScript](https://global-docs.upbit.com/docs/typescript-sdk.md): This guide explains how to call the Upbit API using the Upbit SDK library in a TypeScript environment.
+- [Go](https://global-docs.upbit.com/docs/go-sdk.md): This guide explains how to set up a development environment for calling the Upbit API using the Upbit SDK in a Go environment.
+- [CCXT Library Integration Guide](https://global-docs.upbit.com/docs/ccxt-library-integration-guide.md): CCXT (CryptoCurrency eXchange Trading Library) is an open-source library that integrates APIs of cryptocurrency exchanges worldwide into a single interface. This allows you to utilize features such as algorithmic trading and strategic backtesting across various programming languages.
+- [FAQ - API Usage](https://global-docs.upbit.com/docs/faq-api-usage.md): A list of frequently asked questions about using the API.
+- [FAQ - Market & Order](https://global-docs.upbit.com/docs/faq-order.md): A collection of frequently asked questions about order-related topics.
+- [FAQ - Deposit & Withdrawal](https://global-docs.upbit.com/docs/faq-withdraw-deposit.md): A list of frequently asked questions about deposits and withdrawals.
+- [SGD, IDR, THB Market Order Price Unit](https://global-docs.upbit.com/docs/fiat-market-info.md)
+- [BTC Market Order Price Unit](https://global-docs.upbit.com/docs/btc-market-info.md): This section provides information on the price tick sizes and minimum order amount policy for the BTC market.
+- [USDT Market Order Price Unit](https://global-docs.upbit.com/docs/usdt-market-info.md): This section provides information on the price tick sizes and minimum order amount policy for the USDT market.
+- [Singapore](https://global-docs.upbit.com/docs/withdrawal-allolwlist-registration-guide-sg.md)
+- [Indonesia, Thailand](https://global-docs.upbit.com/docs/withdrawal-allolwlist-registration-guide-ind-th.md)
+- [Self-Match Prevention (SMP)](https://global-docs.upbit.com/docs/smp.md): Prevents order matching between orders placed by the same user.
+
+## API Reference
+- [Overview](https://global-docs.upbit.com/reference/api-overview.md): This page provides a comprehensive overview of Upbit API’s main features and integration process.
+- [Authentication](https://global-docs.upbit.com/reference/auth.md): This guide explains how to authenticate your requests when using Upbit’s REST API and WebSocket.
+- [Rate Limits](https://global-docs.upbit.com/reference/rate-limits.md): This is a guide on Upbit API’s request rate limit policy and its implementation instructions.
+- [REST API Usage and Error Guide](https://global-docs.upbit.com/reference/rest-api-guide.md): This is a guide for Upbit REST API usage covering requests, authentication, error handling, and gzip support.
+- [WebSocket Usage and Error Guide](https://global-docs.upbit.com/reference/websocket-guide.md): This is a usage guide for Upbit WebSocket connection and data reception.
+- [List Trading Pairs](https://global-docs.upbit.com/reference/list-trading-pairs.md): Retrieves the list of all trading pairs supported by Upbit.
+- [List Second Candles](https://global-docs.upbit.com/reference/list-candles-seconds.md): Retrieves the list of candles per second.
+- [List Minute Candles](https://global-docs.upbit.com/reference/list-candles-minutes.md): Retrieves the list of candles per minute.
+- [List Day Candles](https://global-docs.upbit.com/reference/list-candles-days.md): Retrieves the list of candles per day.
+- [List Week Candles](https://global-docs.upbit.com/reference/list-candles-weeks.md): Retrieves the list of candles per week.
+- [List Month Candles](https://global-docs.upbit.com/reference/list-candles-months.md): Retrieves the list of candles per month.
+- [List Year Candles](https://global-docs.upbit.com/reference/list-candles-years.md): Retrieves the list of candles per year.
+- [List Pair Trades](https://global-docs.upbit.com/reference/list-pair-trades.md): Retrieves recent trades for the specified pair.
+- [List Tickers by Pairs](https://global-docs.upbit.com/reference/list-tickers.md): Retrieves the current price for the specified pair. Returns the ticker snapshot of the pair at the time of the request.
+- [List Tickers by Market](https://global-docs.upbit.com/reference/list-quote-tickers.md): Retrieves current price information of all pairs in the specified market(quote currency).
+- [Get Orderbook](https://global-docs.upbit.com/reference/list-orderbooks.md): Retrieves the real-time orderbook data for the specified markets.
+- [List Orderbook Instruments](https://global-docs.upbit.com/reference/list-orderbook-instruments.md): Retrieves the tick size (order price unit) for the specified trading pairs.
+- [Get Account Balances](https://global-docs.upbit.com/reference/get-balance.md): Retrieves the list of assets and balances owned by the account.
+- [Get Available Order Info](https://global-docs.upbit.com/reference/available-order-information.md): Retrieves the order availability information for the specified pair.
+- [Create Order](https://global-docs.upbit.com/reference/new-order.md): Creates an order to buy or sell a specific trading pair.
+- [Test Order](https://global-docs.upbit.com/reference/order-test.md): Validates an order request without creating an actual order.
+- [Get Order](https://global-docs.upbit.com/reference/get-order.md): Retrieves an order information by order UUID or Identifier.
+- [List Orders by IDs](https://global-docs.upbit.com/reference/list-orders-by-ids.md): Retrieves orders by a list of UUIDs or Identifiers.
+- [List Open Orders](https://global-docs.upbit.com/reference/list-open-orders.md): Retrieves the list of open orders that are currently pending execution.
+- [List Closed Orders](https://global-docs.upbit.com/reference/list-closed-orders.md): Retrieves the list of closed orders.
+- [Cancel Order](https://global-docs.upbit.com/reference/cancel-order.md): Cancel an order by UUID or Identifier.
+- [Cancel Orders by IDs](https://global-docs.upbit.com/reference/cancel-orders-by-ids.md): Cancel specified orders by providing a list of UUIDs or Identifiers. You can cancel up to 20 orders in a single request.
+- [Batch Cancel Orders](https://global-docs.upbit.com/reference/batch-cancel-orders.md): Batch cancel up to 300 orders that satisfy the specified conditions.
+- [Cancel and New Order](https://global-docs.upbit.com/reference/cancel-and-new-order.md): Cancel existing order and create new order in a single request.
+- [Get Available Withdrawal Information](https://global-docs.upbit.com/reference/available-withdrawal-information.md): Retrieves withdrawal availability information for the specified currency, including its withdrawal policy and user balance.
+- [List Withdrawal Allowed Addresses](https://global-docs.upbit.com/reference/list-withdrawal-addresses.md): Retrieves the list of withdrawal whitelist addresses registered to the account.
+- [Withdraw Digital Asset](https://global-docs.upbit.com/reference/withdraw.md): Requests a withdrawal of digital asset.
+- [Get Withdrawal](https://global-docs.upbit.com/reference/get-withdrawal.md): Retrieves the latest single withdrawal information. To query a specific withdrawal, you can specify the withdrawal’s UUID or transaction ID (TXID).
+- [List Withdrawals](https://global-docs.upbit.com/reference/list-withdrawals.md): Retrieves latest withdrawal list.
+- [Cancel Withdrawal](https://global-docs.upbit.com/reference/cancel-withdrawal.md): Cancel a completed digital asset withdrawal request by specifying the withdrawal UUID.
+- [Get Available Deposit Information](https://global-docs.upbit.com/reference/available-deposit-information.md): Deposits availability information for the specified currency is retrieved.
+- [Create Deposit Address](https://global-docs.upbit.com/reference/create-deposit-address.md): Requests the creation of a deposit address for depositing assets from a personal wallet or another exchange into Upbit.
+- [Get Deposit Address](https://global-docs.upbit.com/reference/get-deposit-address.md): Retrieves deposit address information for the specified currency.
+- [List Deposit Addresses](https://global-docs.upbit.com/reference/list-deposit-addresses.md): Retrieves deposit address information for the specified currency. Return all successfully generated deposit addresses.
+- [Get Deposit](https://global-docs.upbit.com/reference/get-deposit.md): Retrieves the latest deposit history. To query specific deposit information, you can specify the deposit’s UUID, transaction ID (TXID), or currency code.
+- [List Deposits](https://global-docs.upbit.com/reference/list-deposits.md): Retrieves the latest deposit list.
+- [Travel Rule Verification](https://global-docs.upbit.com/reference/travelrule-guide.md): When depositing from another exchange to Upbit, account owner verification is performed to comply with the Travel Rule.
+- [List Travel Rule Supporting VASPs](https://global-docs.upbit.com/reference/list-travelrule-vasps.md): Retrieves the list of exchanges supporting Travel Rule.
+- [Verify Travel Rule by Deposit UUID](https://global-docs.upbit.com/reference/verify-travelrule-by-uuid.md): Retrieves travel rule verification using the deposit UUID.
+- [Verify Travel Rule by Deposit TxID](https://global-docs.upbit.com/reference/verify-travelrule-by-txid.md): Retrieves travel rule verification using the deposit TxID.
+- [Get Deposit/Withdrawal Service Status](https://global-docs.upbit.com/reference/get-service-status.md): Retrieves deposit and withdrawal service status for all currencies.
+- [Tickers](https://global-docs.upbit.com/reference/websocket-ticker.md): This document provides example request and subscription payloads for receiving ticker(current price) data via WebSocket.
+- [Trades](https://global-docs.upbit.com/reference/websocket-trade.md): This document provides example request and subscription payloads for receiving trade data via WebSocket.
+- [Orderbook](https://global-docs.upbit.com/reference/websocket-orderbook.md): This document provides example request and subscription payloads for receiving order book data via WebSocket.
+- [Candles(OHLCV)](https://global-docs.upbit.com/reference/websocket-candle.md): This document provides example request and subscription payloads for receiving candlestick data via WebSocket.
+- [My Order and Trade](https://global-docs.upbit.com/reference/websocket-myorder.md): This document provides example request and subscription payloads for receiving personal order and trade execution data via WebSocket.
+- [My Asset](https://global-docs.upbit.com/reference/websocket-myasset.md): This document provides example request and subscription payloads for receiving personal asset data via WebSocket.
+- [List Subscriptions](https://global-docs.upbit.com/reference/list-subscriptions.md): You can verify the data stream items currently subscribed to through the WebSocket connection.
+
+## Recipes
+- [[Java] WebSocket Connection](https://global-docs.upbit.com/recipes/java-connect-websocket.md)
+- [[Java] Create Auth Token (JWT)](https://global-docs.upbit.com/recipes/java-create-auth-token-jwt.md)
+- [[Node.js] WebSocket Connection](https://global-docs.upbit.com/recipes/nodejs-connect-websocket.md)
+- [[Node.js] Create Auth Token (JWT)](https://global-docs.upbit.com/recipes/nodejs-create-auth-token-jwt.md)
+- [[Python] Account Owner Verification Automation](https://global-docs.upbit.com/recipes/python-account-owner-verification-automation.md)
+- [[Python] WebSocket Connection](https://global-docs.upbit.com/recipes/python-connect-websocket.md)
+- [[Python] Create Auth Token (JWT)](https://global-docs.upbit.com/recipes/python-create-auth-token-jwt.md)
+- [[Python] Create Limit Bid Order](https://global-docs.upbit.com/recipes/python-create-limit-bid-order.md)
+- [[Python] Create Market Ask Order](https://global-docs.upbit.com/recipes/python-create-market-ask-order.md)
+- [[Python]  Getting the Top 5 Trading Pair by 24-hour Cumulative Trading Price](https://global-docs.upbit.com/recipes/python-retrieve-he-top-trading-pair-by-24-hour-cumulative-trading-price.md)
+- [[Python] RSI Calculation](https://global-docs.upbit.com/recipes/python-rsi-calculation.md)
+- [[Python] Withdraw Digital Asset](https://global-docs.upbit.com/recipes/python-withdraw-digital-asset.md)
+
+## Pages
+- [Open API Technical Support](https://global-docs.upbit.com/page/open-api-technical-support.md)
+
+## Changelog
+- [[Important] Scheduled Server Maintenance(Completed)](https://global-docs.upbit.com/changelog/server_maintenance_0706.md)
+- [[Notice] Launch of Upbit Go SDK](https://global-docs.upbit.com/changelog/upbit-go-sdk-release.md)
+- [[Notice] Official Launch of the Upbit SDK – Get Started with the Upbit API Easily and Quickly!](https://global-docs.upbit.com/changelog/upbit-sdk-release.md)
+- [[Important] Scheduled Server Maintenance (Completed)](https://global-docs.upbit.com/changelog/server_maintenance_0413.md)
+- [[Important] Scheduled Server Maintenance (Completed)](https://global-docs.upbit.com/changelog/scheduled-server-maintenance-january-1-2026.md)
+- [[Important] Notice on BingX Travel Rule Verification UUID Change (Dec 08, 15:00 )](https://global-docs.upbit.com/changelog/bingx_vasp_uuid_change.md)
+- [[Important] Notice of Tick Size Adjustment for SGD Market](https://global-docs.upbit.com/changelog/sgd-market-tick-size-adjustment.md)
+- [[Notice] WebSocket Ticker – Notice of Upcoming Deprecated Field Removal](https://global-docs.upbit.com/changelog/notice-websocket-ticker-notice-of-upcoming-deprecated-field-removal.md)
+- [[Notice] Addition of "Test Order" API (10/27)](https://global-docs.upbit.com/changelog/order-test.md)
+- [[Notice] Upbit Global Developer Center Redesign](https://global-docs.upbit.com/changelog/upbit_developer_center_redesign.md)

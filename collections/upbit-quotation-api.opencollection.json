@@ -1,0 +1,385 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Upbit REST Exchange - Account Quotation API",
+    "version": "1.3.2"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Quotation",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List trading pairs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upbit.com/v1/market/all",
+            "params": [
+              {
+                "name": "is_details",
+                "value": "",
+                "type": "query",
+                "description": "If true, returns additional market detail fields"
+              }
+            ]
+          },
+          "docs": "Returns a list of all trading pair identifiers available on Upbit. No authentication required."
+        },
+        {
+          "info": {
+            "name": "List second candles",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upbit.com/v1/candles/seconds",
+            "params": [
+              {
+                "name": "market",
+                "value": "",
+                "type": "query",
+                "description": "Market identifier (e.g., KRW-BTC)"
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "End time for candles (ISO 8601 format)"
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query",
+                "description": "Number of candles to return (max 200)"
+              }
+            ]
+          },
+          "docs": "Returns OHLCV second candles for the specified market. No authentication required."
+        },
+        {
+          "info": {
+            "name": "List minute candles",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upbit.com/v1/candles/minutes/:unit",
+            "params": [
+              {
+                "name": "unit",
+                "value": "",
+                "type": "path",
+                "description": "Minute interval (1, 3, 5, 10, 15, 30, 60, or 240)"
+              },
+              {
+                "name": "market",
+                "value": "",
+                "type": "query",
+                "description": "Market identifier (e.g., KRW-BTC)"
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "End time for candles (ISO 8601 format)"
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query",
+                "description": "Number of candles to return (max 200)"
+              }
+            ]
+          },
+          "docs": "Returns OHLCV minute candles for the specified market and unit interval. No authentication required."
+        },
+        {
+          "info": {
+            "name": "List day candles",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upbit.com/v1/candles/days",
+            "params": [
+              {
+                "name": "market",
+                "value": "",
+                "type": "query",
+                "description": "Market identifier (e.g., KRW-BTC)"
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "End time for candles (ISO 8601 format)"
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query",
+                "description": "Number of candles to return (max 200)"
+              },
+              {
+                "name": "converting_price_unit",
+                "value": "",
+                "type": "query",
+                "description": "Quote currency for price conversion (e.g., KRW)"
+              }
+            ]
+          },
+          "docs": "Returns OHLCV daily candles for the specified market. No authentication required."
+        },
+        {
+          "info": {
+            "name": "List week candles",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upbit.com/v1/candles/weeks",
+            "params": [
+              {
+                "name": "market",
+                "value": "",
+                "type": "query",
+                "description": "Market identifier (e.g., KRW-BTC)"
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "End time for candles (ISO 8601 format)"
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query",
+                "description": "Number of candles to return (max 200)"
+              }
+            ]
+          },
+          "docs": "Returns OHLCV weekly candles for the specified market. No authentication required."
+        },
+        {
+          "info": {
+            "name": "List month candles",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upbit.com/v1/candles/months",
+            "params": [
+              {
+                "name": "market",
+                "value": "",
+                "type": "query",
+                "description": "Market identifier (e.g., KRW-BTC)"
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "End time for candles (ISO 8601 format)"
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query",
+                "description": "Number of candles to return (max 200)"
+              }
+            ]
+          },
+          "docs": "Returns OHLCV monthly candles for the specified market. No authentication required."
+        },
+        {
+          "info": {
+            "name": "List year candles",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upbit.com/v1/candles/years",
+            "params": [
+              {
+                "name": "market",
+                "value": "",
+                "type": "query",
+                "description": "Market identifier (e.g., KRW-BTC)"
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "End time for candles (ISO 8601 format)"
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query",
+                "description": "Number of candles to return (max 200)"
+              }
+            ]
+          },
+          "docs": "Returns OHLCV yearly candles for the specified market. No authentication required."
+        },
+        {
+          "info": {
+            "name": "List pair trades",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upbit.com/v1/trades/ticks",
+            "params": [
+              {
+                "name": "market",
+                "value": "",
+                "type": "query",
+                "description": "Market identifier (e.g., KRW-BTC)"
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "End trade time (HHmmss or HHmmssSSS format)"
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query",
+                "description": "Number of trade ticks to return"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Pagination cursor (sequential_id from prior response)"
+              },
+              {
+                "name": "days_ago",
+                "value": "",
+                "type": "query",
+                "description": "Number of days ago to fetch trades (0–7)"
+              }
+            ]
+          },
+          "docs": "Returns recent trade ticks for the specified trading pair. No authentication required."
+        },
+        {
+          "info": {
+            "name": "List pair tickers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upbit.com/v1/ticker",
+            "params": [
+              {
+                "name": "markets",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of market identifiers (e.g., KRW-BTC,KRW-ETH)"
+              }
+            ]
+          },
+          "docs": "Returns current ticker information for specified trading pairs. No authentication required."
+        },
+        {
+          "info": {
+            "name": "List quote-currency tickers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upbit.com/v1/ticker/all",
+            "params": [
+              {
+                "name": "quote_currencies",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated quote currencies (e.g., KRW,BTC,USDT)"
+              }
+            ]
+          },
+          "docs": "Returns ticker information for all trading pairs in the specified quote currencies. No authentication required."
+        },
+        {
+          "info": {
+            "name": "List orderbooks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upbit.com/v1/orderbook",
+            "params": [
+              {
+                "name": "markets",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of market identifiers"
+              },
+              {
+                "name": "level",
+                "value": "",
+                "type": "query",
+                "description": "Aggregation level for orderbook"
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query",
+                "description": "Number of orderbook levels to return"
+              }
+            ]
+          },
+          "docs": "Returns orderbook snapshots for specified trading pairs. No authentication required."
+        },
+        {
+          "info": {
+            "name": "List orderbook instruments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upbit.com/v1/orderbook/instruments",
+            "params": [
+              {
+                "name": "markets",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of market identifiers"
+              }
+            ]
+          },
+          "docs": "Returns orderbook instrument metadata including tick size and supported aggregation levels. No authentication required."
+        },
+        {
+          "info": {
+            "name": "List supported orderbook levels",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upbit.com/v1/orderbook/supported_levels",
+            "params": [
+              {
+                "name": "markets",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of market identifiers"
+              }
+            ]
+          },
+          "docs": "Returns the supported aggregation levels for orderbooks of specified markets. No authentication required."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

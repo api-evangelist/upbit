@@ -1,0 +1,235 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Upbit REST Exchange - Account Exchange - Deposits API",
+    "version": "1.3.2"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Exchange - Deposits",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get available deposit information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upbit.com/v1/deposits/chance/coin",
+            "params": [
+              {
+                "name": "currency",
+                "value": "",
+                "type": "query",
+                "description": "Currency code"
+              },
+              {
+                "name": "net_type",
+                "value": "",
+                "type": "query",
+                "description": "Network type"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns deposit availability status, minimum amounts, and confirmation requirements for the specified currency and network."
+        },
+        {
+          "info": {
+            "name": "Create deposit address",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.upbit.com/v1/deposits/generate_coin_address",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Generates a new deposit address for the specified currency and network type. Address generation may be asynchronous; poll get_deposit_address if address is not immediately returned."
+        },
+        {
+          "info": {
+            "name": "Get deposit address",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upbit.com/v1/deposits/coin_address",
+            "params": [
+              {
+                "name": "currency",
+                "value": "",
+                "type": "query",
+                "description": "Currency code"
+              },
+              {
+                "name": "net_type",
+                "value": "",
+                "type": "query",
+                "description": "Network type"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns the deposit address for the specified currency and network type."
+        },
+        {
+          "info": {
+            "name": "List deposit addresses",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upbit.com/v1/deposits/coin_addresses",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns all deposit addresses for the authenticated account across all currencies and networks."
+        },
+        {
+          "info": {
+            "name": "Get deposit",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upbit.com/v1/deposit",
+            "params": [
+              {
+                "name": "currency",
+                "value": "",
+                "type": "query",
+                "description": "Currency code"
+              },
+              {
+                "name": "uuid",
+                "value": "",
+                "type": "query",
+                "description": "Deposit UUID"
+              },
+              {
+                "name": "txid",
+                "value": "",
+                "type": "query",
+                "description": "Blockchain transaction ID"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns details for a single deposit by currency, UUID, or transaction ID."
+        },
+        {
+          "info": {
+            "name": "List deposits",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upbit.com/v1/deposits",
+            "params": [
+              {
+                "name": "currency",
+                "value": "",
+                "type": "query",
+                "description": "Filter by currency code"
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query",
+                "description": "Filter by deposit state"
+              },
+              {
+                "name": "uuids[]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by deposit UUIDs"
+              },
+              {
+                "name": "txids[]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by blockchain transaction IDs"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Sort order"
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "Start of date range"
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "End of date range"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns a list of deposits for the authenticated account with optional filters."
+        },
+        {
+          "info": {
+            "name": "Request KRW deposit",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.upbit.com/v1/deposits/krw",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Initiates a KRW fiat deposit with two-factor authentication verification."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

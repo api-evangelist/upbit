@@ -1,0 +1,48 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Upbit REST Exchange - Account Exchange - Service API",
+    "version": "1.3.2"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Exchange - Service",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get wallet service status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upbit.com/v1/status/wallet",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns the current operational status of wallet services for all currencies including block sync status."
+        },
+        {
+          "info": {
+            "name": "List API keys",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upbit.com/v1/api_keys",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns all API keys associated with the authenticated account along with their expiration dates."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

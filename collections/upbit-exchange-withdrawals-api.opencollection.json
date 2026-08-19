@@ -1,0 +1,229 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Upbit REST Exchange - Account Exchange - Withdrawals API",
+    "version": "1.3.2"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Exchange - Withdrawals",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get available withdrawal information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upbit.com/v1/withdraws/chance",
+            "params": [
+              {
+                "name": "currency",
+                "value": "",
+                "type": "query",
+                "description": "Currency code (e.g., BTC)"
+              },
+              {
+                "name": "net_type",
+                "value": "",
+                "type": "query",
+                "description": "Network type (e.g., BTC, ERC20)"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns withdrawal limits and member level information for the specified currency and network type."
+        },
+        {
+          "info": {
+            "name": "Request digital asset withdrawal",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.upbit.com/v1/withdraws/coin",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Initiates a withdrawal of digital assets to an allowlisted address."
+        },
+        {
+          "info": {
+            "name": "Cancel digital asset withdrawal",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.upbit.com/v1/withdraws/coin",
+            "params": [
+              {
+                "name": "uuid",
+                "value": "",
+                "type": "query",
+                "description": "UUID of the withdrawal to cancel"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Cancels a pending digital asset withdrawal by UUID."
+        },
+        {
+          "info": {
+            "name": "Request KRW withdrawal",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.upbit.com/v1/withdraws/krw",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Initiates a KRW fiat withdrawal with two-factor authentication verification."
+        },
+        {
+          "info": {
+            "name": "Get withdrawal",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upbit.com/v1/withdraw",
+            "params": [
+              {
+                "name": "uuid",
+                "value": "",
+                "type": "query",
+                "description": "Withdrawal UUID"
+              },
+              {
+                "name": "txid",
+                "value": "",
+                "type": "query",
+                "description": "Blockchain transaction ID"
+              },
+              {
+                "name": "currency",
+                "value": "",
+                "type": "query",
+                "description": "Currency code"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns details for a single withdrawal by UUID, transaction ID, or currency."
+        },
+        {
+          "info": {
+            "name": "List withdrawals",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upbit.com/v1/withdraws",
+            "params": [
+              {
+                "name": "currency",
+                "value": "",
+                "type": "query",
+                "description": "Filter by currency code"
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query",
+                "description": "Filter by withdrawal state"
+              },
+              {
+                "name": "uuids[]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by withdrawal UUIDs"
+              },
+              {
+                "name": "txids[]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by transaction IDs"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Sort order"
+              },
+              {
+                "name": "from",
+                "value": "",
+                "type": "query",
+                "description": "Start of date range"
+              },
+              {
+                "name": "to",
+                "value": "",
+                "type": "query",
+                "description": "End of date range"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns a list of withdrawals for the authenticated account with optional filters."
+        },
+        {
+          "info": {
+            "name": "List withdrawal addresses",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upbit.com/v1/withdraws/coin_addresses",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns all withdrawal addresses registered in the authenticated account's allowlist."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

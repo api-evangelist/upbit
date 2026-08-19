@@ -1,0 +1,391 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Upbit REST Exchange - Account Exchange - Orders API",
+    "version": "1.3.2"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Exchange - Orders",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get available order information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upbit.com/v1/orders/chance",
+            "params": [
+              {
+                "name": "market",
+                "value": "",
+                "type": "query",
+                "description": "Market identifier (e.g., KRW-BTC)"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns fee rates and account-level order constraints for the specified market."
+        },
+        {
+          "info": {
+            "name": "Create order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.upbit.com/v1/orders",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Places a new buy or sell order on the specified market. Order type determines which price and volume fields are required."
+        },
+        {
+          "info": {
+            "name": "Create test order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.upbit.com/v1/orders/test",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Validates an order request without actually placing it on the exchange. Same contract as createOrder but does not execute."
+        },
+        {
+          "info": {
+            "name": "Cancel and replace order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.upbit.com/v1/orders/cancel_and_new",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Atomically cancels an existing order and places a new order. Either prev_order_uuid or prev_order_identifier must be provided (not both)."
+        },
+        {
+          "info": {
+            "name": "Get single order",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upbit.com/v1/order",
+            "params": [
+              {
+                "name": "uuid",
+                "value": "",
+                "type": "query",
+                "description": "Order UUID (mutually exclusive with identifier)"
+              },
+              {
+                "name": "identifier",
+                "value": "",
+                "type": "query",
+                "description": "Client order identifier (mutually exclusive with uuid)"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns the details of a single order by UUID or client identifier. Either uuid or identifier must be provided."
+        },
+        {
+          "info": {
+            "name": "Cancel single order",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.upbit.com/v1/order",
+            "params": [
+              {
+                "name": "uuid",
+                "value": "",
+                "type": "query",
+                "description": "Order UUID (mutually exclusive with identifier)"
+              },
+              {
+                "name": "identifier",
+                "value": "",
+                "type": "query",
+                "description": "Client order identifier (mutually exclusive with uuid)"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Cancels an order by UUID or client identifier. Either uuid or identifier must be provided."
+        },
+        {
+          "info": {
+            "name": "List orders by IDs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upbit.com/v1/orders/uuids",
+            "params": [
+              {
+                "name": "market",
+                "value": "",
+                "type": "query",
+                "description": "Filter by market identifier"
+              },
+              {
+                "name": "uuids[]",
+                "value": "",
+                "type": "query",
+                "description": "Array of order UUIDs (mutually exclusive with identifiers[])"
+              },
+              {
+                "name": "identifiers[]",
+                "value": "",
+                "type": "query",
+                "description": "Array of client identifiers (mutually exclusive with uuids[])"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Sort order"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns details for multiple orders identified by UUID or client identifier arrays. Either uuids[] or identifiers[] must be provided."
+        },
+        {
+          "info": {
+            "name": "Cancel orders by IDs",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.upbit.com/v1/orders/uuids",
+            "params": [
+              {
+                "name": "uuids[]",
+                "value": "",
+                "type": "query",
+                "description": "Array of order UUIDs (mutually exclusive with identifiers[])"
+              },
+              {
+                "name": "identifiers[]",
+                "value": "",
+                "type": "query",
+                "description": "Array of client identifiers (mutually exclusive with uuids[])"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Cancels multiple orders identified by UUID or client identifier arrays. Either uuids[] or identifiers[] must be provided."
+        },
+        {
+          "info": {
+            "name": "List open orders",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upbit.com/v1/orders/open",
+            "params": [
+              {
+                "name": "market",
+                "value": "",
+                "type": "query",
+                "description": "Filter by market identifier"
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query",
+                "description": "Filter by order state"
+              },
+              {
+                "name": "states[]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by multiple order states"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for pagination"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Sort order"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns all open (unfilled or partially filled) orders for the authenticated account."
+        },
+        {
+          "info": {
+            "name": "Batch cancel open orders",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.upbit.com/v1/orders/open",
+            "params": [
+              {
+                "name": "quote_currencies",
+                "value": "",
+                "type": "query",
+                "description": "Filter by quote currencies"
+              },
+              {
+                "name": "cancel_side",
+                "value": "",
+                "type": "query",
+                "description": "Only cancel orders on this side"
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of orders to cancel"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Ordering for selecting orders to cancel"
+              },
+              {
+                "name": "pairs",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of market pairs to include"
+              },
+              {
+                "name": "exclude_pairs",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of market pairs to exclude"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Cancels multiple open orders matching the specified criteria. Up to 300 orders can be cancelled per request."
+        },
+        {
+          "info": {
+            "name": "List closed orders",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upbit.com/v1/orders/closed",
+            "params": [
+              {
+                "name": "market",
+                "value": "",
+                "type": "query",
+                "description": "Filter by market identifier"
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query",
+                "description": "Filter by order state"
+              },
+              {
+                "name": "states[]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by multiple order states"
+              },
+              {
+                "name": "start_time",
+                "value": "",
+                "type": "query",
+                "description": "Start of time range"
+              },
+              {
+                "name": "end_time",
+                "value": "",
+                "type": "query",
+                "description": "End of time range"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return"
+              },
+              {
+                "name": "order_by",
+                "value": "",
+                "type": "query",
+                "description": "Sort order"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns completed (done or cancelled) orders for the authenticated account."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

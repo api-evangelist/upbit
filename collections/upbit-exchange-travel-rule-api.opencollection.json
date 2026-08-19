@@ -1,0 +1,71 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Upbit REST Exchange - Account Exchange - Travel Rule API",
+    "version": "1.3.2"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Exchange - Travel Rule",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Travel Rule VASPs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upbit.com/v1/travel_rule/vasps",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns the list of Virtual Asset Service Providers (VASPs) registered for Travel Rule compliance, including deposit and withdrawal availability."
+        },
+        {
+          "info": {
+            "name": "Verify deposit owner by UUID",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.upbit.com/v1/travel_rule/deposit/uuid",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Verifies the account ownership for a deposit under Travel Rule requirements using the deposit UUID. Rate limit is 1 request per 10 minutes per deposit case."
+        },
+        {
+          "info": {
+            "name": "Verify deposit owner by TxID",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.upbit.com/v1/travel_rule/deposit/txid",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Verifies the account ownership for a deposit under Travel Rule requirements using the blockchain transaction ID. Rate limit is 1 request per 10 minutes per deposit case."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,1866 @@
+{
+  "item": [
+    {
+      "id": "090a3c4a-9681-4c20-af07-19fcb7fed0f8",
+      "name": "Quotation",
+      "description": {
+        "content": "Public market data endpoints — no authentication required",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "fceec37d-e058-4eaa-bd26-b11df57cf065",
+          "name": "List trading pairs",
+          "request": {
+            "name": "List trading pairs",
+            "description": {
+              "content": "Returns a list of all trading pair identifiers available on Upbit. No authentication required.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "market",
+                "all"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "is_details",
+                  "value": "<boolean>",
+                  "description": "If true, returns additional market detail fields"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ef386d88-4c37-4f30-bd77-1eb0e6e42afe",
+              "name": "List of trading pairs",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "market",
+                    "all"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "is_details",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"market\": \"string\",\n    \"korean_name\": \"string\",\n    \"english_name\": \"string\"\n  },\n  {\n    \"market\": \"string\",\n    \"korean_name\": \"string\",\n    \"english_name\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "49d5110c-012b-4d28-8971-96441b9859fa",
+              "name": "Rate limit exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "market",
+                    "all"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "is_details",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0e0ce2d9-9e5d-49c4-af50-90678fd305bb",
+          "name": "List second candles",
+          "request": {
+            "name": "List second candles",
+            "description": {
+              "content": "Returns OHLCV second candles for the specified market. No authentication required.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "candles",
+                "seconds"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "market",
+                  "value": "<string>",
+                  "description": "(Required) Market identifier (e.g., KRW-BTC)"
+                },
+                {
+                  "disabled": false,
+                  "key": "to",
+                  "value": "<dateTime>",
+                  "description": "End time for candles (ISO 8601 format)"
+                },
+                {
+                  "disabled": false,
+                  "key": "count",
+                  "value": "<integer>",
+                  "description": "Number of candles to return (max 200)"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b660730b-b1cf-4b6f-bfd2-d003152a94a5",
+              "name": "List of second candles",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "candles",
+                    "seconds"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "market",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "count",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"market\": \"string\",\n    \"candle_date_time_utc\": \"1988-02-06T21:13:56.876Z\",\n    \"candle_date_time_kst\": \"1951-06-21T22:05:46.594Z\",\n    \"opening_price\": \"string\",\n    \"high_price\": \"string\",\n    \"low_price\": \"string\",\n    \"trade_price\": \"string\",\n    \"timestamp\": 5445,\n    \"candle_acc_trade_price\": \"string\",\n    \"candle_acc_trade_volume\": \"string\"\n  },\n  {\n    \"market\": \"string\",\n    \"candle_date_time_utc\": \"1981-12-13T19:49:35.580Z\",\n    \"candle_date_time_kst\": \"1964-07-06T09:21:25.597Z\",\n    \"opening_price\": \"string\",\n    \"high_price\": \"string\",\n    \"low_price\": \"string\",\n    \"trade_price\": \"string\",\n    \"timestamp\": 6682,\n    \"candle_acc_trade_price\": \"string\",\n    \"candle_acc_trade_volume\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1cef6587-20dd-47b9-9ff8-7bb99ab18ccf",
+              "name": "Rate limit exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "candles",
+                    "seconds"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "market",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "count",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cd1647e0-bf51-4ea6-8fab-f011ac8325ea",
+          "name": "List minute candles",
+          "request": {
+            "name": "List minute candles",
+            "description": {
+              "content": "Returns OHLCV minute candles for the specified market and unit interval. No authentication required.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "candles",
+                "minutes",
+                ":unit"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "market",
+                  "value": "<string>",
+                  "description": "(Required) Market identifier (e.g., KRW-BTC)"
+                },
+                {
+                  "disabled": false,
+                  "key": "to",
+                  "value": "<dateTime>",
+                  "description": "End time for candles (ISO 8601 format)"
+                },
+                {
+                  "disabled": false,
+                  "key": "count",
+                  "value": "<integer>",
+                  "description": "Number of candles to return (max 200)"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "unit",
+                  "description": "(Required) Minute interval (1, 3, 5, 10, 15, 30, 60, or 240)"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "417ac66e-c21d-46f5-a5e9-d3b55bb20e98",
+              "name": "List of minute candles",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "candles",
+                    "minutes",
+                    ":unit"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "market",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "count",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "unit",
+                      "description": "(Required) Minute interval (1, 3, 5, 10, 15, 30, 60, or 240)"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"market\": \"string\",\n    \"candle_date_time_utc\": \"1954-08-23T20:46:00.649Z\",\n    \"candle_date_time_kst\": \"2012-09-11T04:53:26.943Z\",\n    \"opening_price\": \"string\",\n    \"high_price\": \"string\",\n    \"low_price\": \"string\",\n    \"trade_price\": \"string\",\n    \"timestamp\": 2646,\n    \"candle_acc_trade_price\": \"string\",\n    \"candle_acc_trade_volume\": \"string\",\n    \"unit\": 7011\n  },\n  {\n    \"market\": \"string\",\n    \"candle_date_time_utc\": \"1952-04-11T06:16:43.380Z\",\n    \"candle_date_time_kst\": \"2010-04-19T20:25:27.826Z\",\n    \"opening_price\": \"string\",\n    \"high_price\": \"string\",\n    \"low_price\": \"string\",\n    \"trade_price\": \"string\",\n    \"timestamp\": 9235,\n    \"candle_acc_trade_price\": \"string\",\n    \"candle_acc_trade_volume\": \"string\",\n    \"unit\": 5634\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "49250011-f65e-415e-b10c-fe19a4632000",
+              "name": "Rate limit exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "candles",
+                    "minutes",
+                    ":unit"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "market",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "count",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "unit",
+                      "description": "(Required) Minute interval (1, 3, 5, 10, 15, 30, 60, or 240)"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ed85d9c3-7e3c-4671-9bc0-afe933d0566d",
+          "name": "List day candles",
+          "request": {
+            "name": "List day candles",
+            "description": {
+              "content": "Returns OHLCV daily candles for the specified market. No authentication required.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "candles",
+                "days"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "market",
+                  "value": "<string>",
+                  "description": "(Required) Market identifier (e.g., KRW-BTC)"
+                },
+                {
+                  "disabled": false,
+                  "key": "to",
+                  "value": "<dateTime>",
+                  "description": "End time for candles (ISO 8601 format)"
+                },
+                {
+                  "disabled": false,
+                  "key": "count",
+                  "value": "<integer>",
+                  "description": "Number of candles to return (max 200)"
+                },
+                {
+                  "disabled": false,
+                  "key": "converting_price_unit",
+                  "value": "<string>",
+                  "description": "Quote currency for price conversion (e.g., KRW)"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "fcad0f5c-a767-4d17-b0f2-9028fb921cac",
+              "name": "List of daily candles",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "candles",
+                    "days"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "market",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "count",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "converting_price_unit",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"market\": \"string\",\n    \"candle_date_time_utc\": \"1968-08-10T11:45:27.662Z\",\n    \"candle_date_time_kst\": \"1997-02-06T07:45:26.577Z\",\n    \"opening_price\": \"string\",\n    \"high_price\": \"string\",\n    \"low_price\": \"string\",\n    \"trade_price\": \"string\",\n    \"timestamp\": 2429,\n    \"candle_acc_trade_price\": \"string\",\n    \"candle_acc_trade_volume\": \"string\",\n    \"prev_closing_price\": \"string\",\n    \"change_price\": \"string\",\n    \"change_rate\": \"string\"\n  },\n  {\n    \"market\": \"string\",\n    \"candle_date_time_utc\": \"1954-09-09T05:27:08.330Z\",\n    \"candle_date_time_kst\": \"1986-10-06T02:42:09.346Z\",\n    \"opening_price\": \"string\",\n    \"high_price\": \"string\",\n    \"low_price\": \"string\",\n    \"trade_price\": \"string\",\n    \"timestamp\": 627,\n    \"candle_acc_trade_price\": \"string\",\n    \"candle_acc_trade_volume\": \"string\",\n    \"prev_closing_price\": \"string\",\n    \"change_price\": \"string\",\n    \"change_rate\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d0148e94-d4cc-4e6a-963a-699aef276b89",
+              "name": "Rate limit exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "candles",
+                    "days"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "market",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "count",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "converting_price_unit",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f1d74b20-67f2-40b5-b130-0e4cc74f6564",
+          "name": "List week candles",
+          "request": {
+            "name": "List week candles",
+            "description": {
+              "content": "Returns OHLCV weekly candles for the specified market. No authentication required.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "candles",
+                "weeks"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "market",
+                  "value": "<string>",
+                  "description": "(Required) Market identifier (e.g., KRW-BTC)"
+                },
+                {
+                  "disabled": false,
+                  "key": "to",
+                  "value": "<dateTime>",
+                  "description": "End time for candles (ISO 8601 format)"
+                },
+                {
+                  "disabled": false,
+                  "key": "count",
+                  "value": "<integer>",
+                  "description": "Number of candles to return (max 200)"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4f119656-c845-4e12-b5b8-c6acf606fbfa",
+              "name": "List of weekly candles",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "candles",
+                    "weeks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "market",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "count",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"market\": \"string\",\n    \"candle_date_time_utc\": \"1991-10-06T00:23:04.798Z\",\n    \"candle_date_time_kst\": \"1947-04-25T17:29:45.133Z\",\n    \"opening_price\": \"string\",\n    \"high_price\": \"string\",\n    \"low_price\": \"string\",\n    \"trade_price\": \"string\",\n    \"timestamp\": 8836,\n    \"candle_acc_trade_price\": \"string\",\n    \"candle_acc_trade_volume\": \"string\",\n    \"first_day_of_period\": \"2007-05-13\"\n  },\n  {\n    \"market\": \"string\",\n    \"candle_date_time_utc\": \"2002-08-15T00:14:04.108Z\",\n    \"candle_date_time_kst\": \"1963-02-27T20:46:22.290Z\",\n    \"opening_price\": \"string\",\n    \"high_price\": \"string\",\n    \"low_price\": \"string\",\n    \"trade_price\": \"string\",\n    \"timestamp\": 3884,\n    \"candle_acc_trade_price\": \"string\",\n    \"candle_acc_trade_volume\": \"string\",\n    \"first_day_of_period\": \"1952-10-26\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2bf2d5cd-6692-4b23-bffa-244695a90019",
+              "name": "Rate limit exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "candles",
+                    "weeks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "market",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "count",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "94851eb3-ff79-4251-9916-d212c78435fd",
+          "name": "List month candles",
+          "request": {
+            "name": "List month candles",
+            "description": {
+              "content": "Returns OHLCV monthly candles for the specified market. No authentication required.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "candles",
+                "months"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "market",
+                  "value": "<string>",
+                  "description": "(Required) Market identifier (e.g., KRW-BTC)"
+                },
+                {
+                  "disabled": false,
+                  "key": "to",
+                  "value": "<dateTime>",
+                  "description": "End time for candles (ISO 8601 format)"
+                },
+                {
+                  "disabled": false,
+                  "key": "count",
+                  "value": "<integer>",
+                  "description": "Number of candles to return (max 200)"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "546e140e-f707-46b6-84e9-ed4c48bea884",
+              "name": "List of monthly candles",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "candles",
+                    "months"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "market",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "count",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"market\": \"string\",\n    \"candle_date_time_utc\": \"2010-09-18T15:49:15.990Z\",\n    \"candle_date_time_kst\": \"1997-03-23T22:48:21.189Z\",\n    \"opening_price\": \"string\",\n    \"high_price\": \"string\",\n    \"low_price\": \"string\",\n    \"trade_price\": \"string\",\n    \"timestamp\": 5795,\n    \"candle_acc_trade_price\": \"string\",\n    \"candle_acc_trade_volume\": \"string\",\n    \"first_day_of_period\": \"1967-05-25\"\n  },\n  {\n    \"market\": \"string\",\n    \"candle_date_time_utc\": \"1984-03-15T04:40:18.706Z\",\n    \"candle_date_time_kst\": \"1991-03-10T05:50:53.590Z\",\n    \"opening_price\": \"string\",\n    \"high_price\": \"string\",\n    \"low_price\": \"string\",\n    \"trade_price\": \"string\",\n    \"timestamp\": 3376,\n    \"candle_acc_trade_price\": \"string\",\n    \"candle_acc_trade_volume\": \"string\",\n    \"first_day_of_period\": \"1951-06-30\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b2debd84-bc3e-4d06-8d73-77e1d853ca0d",
+              "name": "Rate limit exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "candles",
+                    "months"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "market",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "count",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b89c392a-4f3d-48fc-ba0e-85dac69bf626",
+          "name": "List year candles",
+          "request": {
+            "name": "List year candles",
+            "description": {
+              "content": "Returns OHLCV yearly candles for the specified market. No authentication required.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "candles",
+                "years"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "market",
+                  "value": "<string>",
+                  "description": "(Required) Market identifier (e.g., KRW-BTC)"
+                },
+                {
+                  "disabled": false,
+                  "key": "to",
+                  "value": "<dateTime>",
+                  "description": "End time for candles (ISO 8601 format)"
+                },
+                {
+                  "disabled": false,
+                  "key": "count",
+                  "value": "<integer>",
+                  "description": "Number of candles to return (max 200)"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e8f18266-eeda-4d46-9f19-1725f04ff92c",
+              "name": "List of yearly candles",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "candles",
+                    "years"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "market",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "count",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"market\": \"string\",\n    \"candle_date_time_utc\": \"1998-02-16T19:13:30.189Z\",\n    \"candle_date_time_kst\": \"2010-07-12T08:07:44.006Z\",\n    \"opening_price\": \"string\",\n    \"high_price\": \"string\",\n    \"low_price\": \"string\",\n    \"trade_price\": \"string\",\n    \"timestamp\": 492,\n    \"candle_acc_trade_price\": \"string\",\n    \"candle_acc_trade_volume\": \"string\",\n    \"first_day_of_period\": \"1951-03-16\"\n  },\n  {\n    \"market\": \"string\",\n    \"candle_date_time_utc\": \"2015-07-03T12:00:08.008Z\",\n    \"candle_date_time_kst\": \"2011-10-25T20:59:11.911Z\",\n    \"opening_price\": \"string\",\n    \"high_price\": \"string\",\n    \"low_price\": \"string\",\n    \"trade_price\": \"string\",\n    \"timestamp\": 2484,\n    \"candle_acc_trade_price\": \"string\",\n    \"candle_acc_trade_volume\": \"string\",\n    \"first_day_of_period\": \"2004-03-24\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "207fb5b4-f6de-4129-9483-dd201f20dec1",
+              "name": "Rate limit exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "candles",
+                    "years"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "market",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "count",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "75645f36-a8f9-4561-8831-933a200719f0",
+          "name": "List pair trades",
+          "request": {
+            "name": "List pair trades",
+            "description": {
+              "content": "Returns recent trade ticks for the specified trading pair. No authentication required.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "trades",
+                "ticks"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "market",
+                  "value": "<string>",
+                  "description": "(Required) Market identifier (e.g., KRW-BTC)"
+                },
+                {
+                  "disabled": false,
+                  "key": "to",
+                  "value": "<string>",
+                  "description": "End trade time (HHmmss or HHmmssSSS format)"
+                },
+                {
+                  "disabled": false,
+                  "key": "count",
+                  "value": "<integer>",
+                  "description": "Number of trade ticks to return"
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "Pagination cursor (sequential_id from prior response)"
+                },
+                {
+                  "disabled": false,
+                  "key": "days_ago",
+                  "value": "<integer>",
+                  "description": "Number of days ago to fetch trades (0–7)"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8114600b-ca95-4298-a54b-d6410d859fc4",
+              "name": "List of trade ticks",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "trades",
+                    "ticks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "market",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "count",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "days_ago",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"market\": \"string\",\n    \"trade_date_utc\": \"string\",\n    \"trade_time_utc\": \"string\",\n    \"timestamp\": 688,\n    \"trade_price\": \"string\",\n    \"trade_volume\": \"string\",\n    \"prev_closing_price\": \"string\",\n    \"change_price\": \"string\",\n    \"ask_bid\": \"ASK\",\n    \"sequential_id\": 8372\n  },\n  {\n    \"market\": \"string\",\n    \"trade_date_utc\": \"string\",\n    \"trade_time_utc\": \"string\",\n    \"timestamp\": 469,\n    \"trade_price\": \"string\",\n    \"trade_volume\": \"string\",\n    \"prev_closing_price\": \"string\",\n    \"change_price\": \"string\",\n    \"ask_bid\": \"BID\",\n    \"sequential_id\": 7203\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "deca6635-4e04-41fb-ac5d-33916601374d",
+              "name": "Rate limit exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "trades",
+                    "ticks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "market",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "to",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "count",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "days_ago",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5472afe4-786c-472b-9f8f-136b8a6bdedb",
+          "name": "List pair tickers",
+          "request": {
+            "name": "List pair tickers",
+            "description": {
+              "content": "Returns current ticker information for specified trading pairs. No authentication required.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ticker"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "markets",
+                  "value": "<string>",
+                  "description": "(Required) Comma-separated list of market identifiers (e.g., KRW-BTC,KRW-ETH)"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "55de9fb7-dae2-441f-887f-d90980d99355",
+              "name": "List of tickers",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ticker"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "markets",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"market\": \"string\",\n    \"trade_date\": \"string\",\n    \"trade_time\": \"string\",\n    \"trade_date_kst\": \"string\",\n    \"trade_time_kst\": \"string\",\n    \"trade_timestamp\": 173,\n    \"opening_price\": \"string\",\n    \"high_price\": \"string\",\n    \"low_price\": \"string\",\n    \"trade_price\": \"string\",\n    \"prev_closing_price\": \"string\",\n    \"change\": \"RISE\",\n    \"change_price\": \"string\",\n    \"change_rate\": \"string\",\n    \"signed_change_price\": \"string\",\n    \"signed_change_rate\": \"string\",\n    \"trade_volume\": \"string\",\n    \"acc_trade_price\": \"string\",\n    \"acc_trade_price_24h\": \"string\",\n    \"acc_trade_volume\": \"string\",\n    \"acc_trade_volume_24h\": \"string\",\n    \"highest_52_week_price\": \"string\",\n    \"highest_52_week_date\": \"string\",\n    \"lowest_52_week_price\": \"string\",\n    \"lowest_52_week_date\": \"string\",\n    \"timestamp\": 8159\n  },\n  {\n    \"market\": \"string\",\n    \"trade_date\": \"string\",\n    \"trade_time\": \"string\",\n    \"trade_date_kst\": \"string\",\n    \"trade_time_kst\": \"string\",\n    \"trade_timestamp\": 1274,\n    \"opening_price\": \"string\",\n    \"high_price\": \"string\",\n    \"low_price\": \"string\",\n    \"trade_price\": \"string\",\n    \"prev_closing_price\": \"string\",\n    \"change\": \"FALL\",\n    \"change_price\": \"string\",\n    \"change_rate\": \"string\",\n    \"signed_change_price\": \"string\",\n    \"signed_change_rate\": \"string\",\n    \"trade_volume\": \"string\",\n    \"acc_trade_price\": \"string\",\n    \"acc_trade_price_24h\": \"string\",\n    \"acc_trade_volume\": \"string\",\n    \"acc_trade_volume_24h\": \"string\",\n    \"highest_52_week_price\": \"string\",\n    \"highest_52_week_date\": \"string\",\n    \"lowest_52_week_price\": \"string\",\n    \"lowest_52_week_date\": \"string\",\n    \"timestamp\": 8751\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "94331cf7-a099-413e-b296-0d05f0c40da0",
+              "name": "Rate limit exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ticker"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "markets",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e77ac3c5-c327-4781-ba11-b3f65044cf80",
+          "name": "List quote-currency tickers",
+          "request": {
+            "name": "List quote-currency tickers",
+            "description": {
+              "content": "Returns ticker information for all trading pairs in the specified quote currencies. No authentication required.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ticker",
+                "all"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "quote_currencies",
+                  "value": "<string>",
+                  "description": "(Required) Comma-separated quote currencies (e.g., KRW,BTC,USDT)"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9b2a7b3d-6ff9-42e2-8fc1-ddaf91444877",
+              "name": "List of tickers for all pairs in given quote currencies",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ticker",
+                    "all"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "quote_currencies",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"market\": \"string\",\n    \"trade_date\": \"string\",\n    \"trade_time\": \"string\",\n    \"trade_date_kst\": \"string\",\n    \"trade_time_kst\": \"string\",\n    \"trade_timestamp\": 173,\n    \"opening_price\": \"string\",\n    \"high_price\": \"string\",\n    \"low_price\": \"string\",\n    \"trade_price\": \"string\",\n    \"prev_closing_price\": \"string\",\n    \"change\": \"RISE\",\n    \"change_price\": \"string\",\n    \"change_rate\": \"string\",\n    \"signed_change_price\": \"string\",\n    \"signed_change_rate\": \"string\",\n    \"trade_volume\": \"string\",\n    \"acc_trade_price\": \"string\",\n    \"acc_trade_price_24h\": \"string\",\n    \"acc_trade_volume\": \"string\",\n    \"acc_trade_volume_24h\": \"string\",\n    \"highest_52_week_price\": \"string\",\n    \"highest_52_week_date\": \"string\",\n    \"lowest_52_week_price\": \"string\",\n    \"lowest_52_week_date\": \"string\",\n    \"timestamp\": 8159\n  },\n  {\n    \"market\": \"string\",\n    \"trade_date\": \"string\",\n    \"trade_time\": \"string\",\n    \"trade_date_kst\": \"string\",\n    \"trade_time_kst\": \"string\",\n    \"trade_timestamp\": 1274,\n    \"opening_price\": \"string\",\n    \"high_price\": \"string\",\n    \"low_price\": \"string\",\n    \"trade_price\": \"string\",\n    \"prev_closing_price\": \"string\",\n    \"change\": \"FALL\",\n    \"change_price\": \"string\",\n    \"change_rate\": \"string\",\n    \"signed_change_price\": \"string\",\n    \"signed_change_rate\": \"string\",\n    \"trade_volume\": \"string\",\n    \"acc_trade_price\": \"string\",\n    \"acc_trade_price_24h\": \"string\",\n    \"acc_trade_volume\": \"string\",\n    \"acc_trade_volume_24h\": \"string\",\n    \"highest_52_week_price\": \"string\",\n    \"highest_52_week_date\": \"string\",\n    \"lowest_52_week_price\": \"string\",\n    \"lowest_52_week_date\": \"string\",\n    \"timestamp\": 8751\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9fba8a08-a564-429f-8168-f305ed7564af",
+              "name": "Rate limit exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ticker",
+                    "all"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "quote_currencies",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e0e9ae4f-cc2d-4ff3-9b14-8978bc26ffc6",
+          "name": "List orderbooks",
+          "request": {
+            "name": "List orderbooks",
+            "description": {
+              "content": "Returns orderbook snapshots for specified trading pairs. No authentication required.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orderbook"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "markets",
+                  "value": "<string>",
+                  "description": "(Required) Comma-separated list of market identifiers"
+                },
+                {
+                  "disabled": false,
+                  "key": "level",
+                  "value": "<number>",
+                  "description": "Aggregation level for orderbook"
+                },
+                {
+                  "disabled": false,
+                  "key": "count",
+                  "value": "<integer>",
+                  "description": "Number of orderbook levels to return"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "84fddaf3-df9b-41ef-8de7-45724e4fde21",
+              "name": "List of orderbook snapshots",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orderbook"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "markets",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "level",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "count",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"market\": \"string\",\n    \"timestamp\": 1027,\n    \"total_ask_size\": \"string\",\n    \"total_bid_size\": \"string\",\n    \"orderbook_units\": [\n      {\n        \"ask_price\": \"string\",\n        \"bid_price\": \"string\",\n        \"ask_size\": \"string\",\n        \"bid_size\": \"string\"\n      },\n      {\n        \"ask_price\": \"string\",\n        \"bid_price\": \"string\",\n        \"ask_size\": \"string\",\n        \"bid_size\": \"string\"\n      }\n    ],\n    \"level\": 740.7556030397278\n  },\n  {\n    \"market\": \"string\",\n    \"timestamp\": 1093,\n    \"total_ask_size\": \"string\",\n    \"total_bid_size\": \"string\",\n    \"orderbook_units\": [\n      {\n        \"ask_price\": \"string\",\n        \"bid_price\": \"string\",\n        \"ask_size\": \"string\",\n        \"bid_size\": \"string\"\n      },\n      {\n        \"ask_price\": \"string\",\n        \"bid_price\": \"string\",\n        \"ask_size\": \"string\",\n        \"bid_size\": \"string\"\n      }\n    ],\n    \"level\": 1835.6855997390687\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "91235e5c-c3a7-42d6-a856-a129b7b815b3",
+              "name": "Rate limit exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orderbook"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "markets",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "level",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "count",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "06cae5bb-32eb-4dc9-baaa-7ab5ccb9b590",
+          "name": "List orderbook instruments",
+          "request": {
+            "name": "List orderbook instruments",
+            "description": {
+              "content": "Returns orderbook instrument metadata including tick size and supported aggregation levels. No authentication required.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orderbook",
+                "instruments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "markets",
+                  "value": "<string>",
+                  "description": "(Required) Comma-separated list of market identifiers"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ebf915a4-fb23-4c7e-9506-c25782287313",
+              "name": "List of orderbook instruments",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orderbook",
+                    "instruments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "markets",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"market\": \"string\",\n    \"quote_currency\": \"string\",\n    \"tick_size\": \"string\",\n    \"supported_levels\": [\n      9055.016337351526,\n      3355.868935091255\n    ]\n  },\n  {\n    \"market\": \"string\",\n    \"quote_currency\": \"string\",\n    \"tick_size\": \"string\",\n    \"supported_levels\": [\n      4119.938423288433,\n      2358.135381649539\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fdb17930-7631-4f1a-8e95-9aa81935330a",
+              "name": "Rate limit exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orderbook",
+                    "instruments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "markets",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "73163bce-16ae-4975-9207-acac214cc252",
+          "name": "List supported orderbook levels",
+          "request": {
+            "name": "List supported orderbook levels",
+            "description": {
+              "content": "Returns the supported aggregation levels for orderbooks of specified markets. No authentication required.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orderbook",
+                "supported_levels"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "markets",
+                  "value": "<string>",
+                  "description": "(Required) Comma-separated list of market identifiers"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3065e39d-3a1b-40ca-abb3-15ed110b2ca3",
+              "name": "Supported orderbook levels per market",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orderbook",
+                    "supported_levels"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "markets",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"market\": \"string\",\n    \"supported_levels\": [\n      4198.578993362474,\n      917.9555011032337\n    ]\n  },\n  {\n    \"market\": \"string\",\n    \"supported_levels\": [\n      9202.587986012893,\n      9675.14952339207\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8623b92e-acba-4fe4-a367-69204e370da8",
+              "name": "Rate limit exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orderbook",
+                    "supported_levels"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "markets",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.upbit.com/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "7f1f52c2-3b03-47f6-aed2-786af5a644a0",
+    "name": "Upbit REST Exchange - Account Quotation API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Upbit is a leading South Korean cryptocurrency exchange operated by Dunamu Inc., offering REST and WebSocket APIs for market data retrieval, order management, account balances, and transaction history. Developers must register an Upbit account with security level 2 or higher to issue API keys. Authenticated requests use JWT bearer tokens (HS512) generated from an Access Key and Secret Key pair, while public quotation endpoints (market data, tickers, orderbooks, candles) require no authentication. Upbit supports KRW, BTC, and USDT trading markets and complies with travel-rule regulations for digital asset transfers.",
+      "type": "text/plain"
+    }
+  }
+}
