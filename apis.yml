@@ -5,6 +5,13 @@ tags:
   - Cryptocurrency
   - Exchange
   - Market Data
+  - Order
+  - Trading
+  - WebSocket
+tags_raw:
+  - Cryptocurrency
+  - Exchange
+  - Market Data
   - Orders
   - Trading
   - WebSocket
@@ -40,6 +47,13 @@ apis:
 - aid: upbit:websocket-api
   name: Upbit WebSocket API
   tags:
+  - Candles
+  - Market Data
+  - Order
+  - Real-Time
+  - Trades
+  - WebSocket
+  tags_raw:
   - Candles
   - Market Data
   - Orders
