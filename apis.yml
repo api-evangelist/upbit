@@ -46,7 +46,7 @@ image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/upbit.png
 access: 3rd-Party
 created: '2026-06-13'
 modified: '2026-06-13'
-position: Consumer
+position: Consuming
 description: >-
   Upbit is a leading South Korean cryptocurrency exchange operated by Dunamu Inc., offering REST and
   WebSocket APIs for market data retrieval, order management, account balances, and transaction history.
