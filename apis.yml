@@ -63,7 +63,7 @@ apis:
   - Market Data
   - Order
   - Real-Time
-  - Trades
+  - Trade
   - WebSocket
   tags_raw:
   - Candles
