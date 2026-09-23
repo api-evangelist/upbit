@@ -1,7 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Upbit REST Exchange - Account Quotation API
-  description: Upbit is a leading South Korean cryptocurrency exchange operated by Dunamu Inc., offering REST and WebSocket APIs for market data retrieval, order management, account balances, and transaction history. Developers must register an Upbit account with security level 2 or higher to issue API keys. Authenticated requests use JWT bearer tokens (HS512) generated from an Access Key and Secret Key pair, while public quotation endpoints (market data, tickers, orderbooks, candles) require no authentication. Upbit supports KRW, BTC, and USDT trading markets and complies with travel-rule regulations for digital asset transfers.
+  title: Upbit REST Quotation API
+  description: Upbit is a leading South Korean cryptocurrency exchange operated by Dunamu Inc., offering REST and WebSocket APIs for market data retrieval, order management, account balances, and transaction history.
   version: 1.3.2
   termsOfService: https://upbit.com/service_center/terms
   contact:
@@ -627,6 +627,42 @@ paths:
           description: Rate limit exceeded
 components:
   schemas:
+    CandleResponse:
+      type: object
+      properties:
+        market:
+          type: string
+          description: Market identifier
+        candle_date_time_utc:
+          type: string
+          format: date-time
+          description: Candle start time (UTC)
+        candle_date_time_kst:
+          type: string
+          format: date-time
+          description: Candle start time (KST)
+        opening_price:
+          type: string
+          description: Opening price (decimal string)
+        high_price:
+          type: string
+          description: High price (decimal string)
+        low_price:
+          type: string
+          description: Low price (decimal string)
+        trade_price:
+          type: string
+          description: Closing price (decimal string)
+        timestamp:
+          type: integer
+          format: int64
+          description: Candle timestamp (milliseconds)
+        candle_acc_trade_price:
+          type: string
+          description: Accumulated trade price in candle period (decimal string)
+        candle_acc_trade_volume:
+          type: string
+          description: Accumulated trade volume in candle period (decimal string)
     TickerResponse:
       type: object
       properties:
@@ -714,42 +750,6 @@ components:
           type: integer
           format: int64
           description: Ticker timestamp (milliseconds)
-    CandleResponse:
-      type: object
-      properties:
-        market:
-          type: string
-          description: Market identifier
-        candle_date_time_utc:
-          type: string
-          format: date-time
-          description: Candle start time (UTC)
-        candle_date_time_kst:
-          type: string
-          format: date-time
-          description: Candle start time (KST)
-        opening_price:
-          type: string
-          description: Opening price (decimal string)
-        high_price:
-          type: string
-          description: High price (decimal string)
-        low_price:
-          type: string
-          description: Low price (decimal string)
-        trade_price:
-          type: string
-          description: Closing price (decimal string)
-        timestamp:
-          type: integer
-          format: int64
-          description: Candle timestamp (milliseconds)
-        candle_acc_trade_price:
-          type: string
-          description: Accumulated trade price in candle period (decimal string)
-        candle_acc_trade_volume:
-          type: string
-          description: Accumulated trade volume in candle period (decimal string)
   securitySchemes:
     bearerAuth:
       type: http

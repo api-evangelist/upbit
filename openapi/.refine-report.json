@@ -1,13 +1,7 @@
 {
   "provider": "upbit",
   "sources": [
-    "upbit-exchange-account-api-openapi.yml",
-    "upbit-exchange-deposits-api-openapi.yml",
-    "upbit-exchange-orders-api-openapi.yml",
-    "upbit-exchange-service-api-openapi.yml",
-    "upbit-exchange-travel-rule-api-openapi.yml",
-    "upbit-exchange-withdrawals-api-openapi.yml",
-    "upbit-quotation-api-openapi.yml"
+    "_original/openapi.yml"
   ],
   "outputs": [
     "upbit-exchange-account-api-openapi.yml",
@@ -21,6 +15,18 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "upbit-exchange-account-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "upbit-exchange-deposits-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "upbit-exchange-orders-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "upbit-exchange-service-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "upbit-exchange-travel-rule-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "upbit-exchange-withdrawals-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "upbit-quotation-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
