@@ -627,42 +627,6 @@ paths:
           description: Rate limit exceeded
 components:
   schemas:
-    CandleResponse:
-      type: object
-      properties:
-        market:
-          type: string
-          description: Market identifier
-        candle_date_time_utc:
-          type: string
-          format: date-time
-          description: Candle start time (UTC)
-        candle_date_time_kst:
-          type: string
-          format: date-time
-          description: Candle start time (KST)
-        opening_price:
-          type: string
-          description: Opening price (decimal string)
-        high_price:
-          type: string
-          description: High price (decimal string)
-        low_price:
-          type: string
-          description: Low price (decimal string)
-        trade_price:
-          type: string
-          description: Closing price (decimal string)
-        timestamp:
-          type: integer
-          format: int64
-          description: Candle timestamp (milliseconds)
-        candle_acc_trade_price:
-          type: string
-          description: Accumulated trade price in candle period (decimal string)
-        candle_acc_trade_volume:
-          type: string
-          description: Accumulated trade volume in candle period (decimal string)
     TickerResponse:
       type: object
       properties:
@@ -750,6 +714,42 @@ components:
           type: integer
           format: int64
           description: Ticker timestamp (milliseconds)
+    CandleResponse:
+      type: object
+      properties:
+        market:
+          type: string
+          description: Market identifier
+        candle_date_time_utc:
+          type: string
+          format: date-time
+          description: Candle start time (UTC)
+        candle_date_time_kst:
+          type: string
+          format: date-time
+          description: Candle start time (KST)
+        opening_price:
+          type: string
+          description: Opening price (decimal string)
+        high_price:
+          type: string
+          description: High price (decimal string)
+        low_price:
+          type: string
+          description: Low price (decimal string)
+        trade_price:
+          type: string
+          description: Closing price (decimal string)
+        timestamp:
+          type: integer
+          format: int64
+          description: Candle timestamp (milliseconds)
+        candle_acc_trade_price:
+          type: string
+          description: Accumulated trade price in candle period (decimal string)
+        candle_acc_trade_volume:
+          type: string
+          description: Accumulated trade volume in candle period (decimal string)
   securitySchemes:
     bearerAuth:
       type: http
