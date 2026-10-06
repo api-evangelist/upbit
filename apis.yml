@@ -45,7 +45,7 @@ accessModel:
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/upbit.png
 access: 3rd-Party
 created: '2026-06-13'
-modified: '2026-06-13'
+modified: '2026-10-06'
 position: Consuming
 description: >-
   Upbit is a leading South Korean cryptocurrency exchange operated by Dunamu Inc., offering REST and
@@ -226,6 +226,8 @@ apis:
   - type: Authentication
     url: https://global-docs.upbit.com/docs/api-key
 common:
+  - url: https://www.upbit.com/blog/
+    type: Blog
   - type: AgenticAccess
     url: agentic-access/upbit-agentic-access.yml
   - type: VulnerabilityDisclosure
