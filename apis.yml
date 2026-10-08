@@ -226,6 +226,10 @@ apis:
   - type: Authentication
     url: https://global-docs.upbit.com/docs/api-key
 common:
+  - type: Plans
+    url: plans/upbit-plans-pricing.yml
+  - type: FinOps
+    url: finops/upbit-finops.yml
   - url: https://www.upbit.com/blog/
     type: Blog
   - type: AgenticAccess
